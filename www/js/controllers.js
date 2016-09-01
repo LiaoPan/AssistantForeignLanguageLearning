@@ -2,22 +2,22 @@ angular.module('app.controllers', [])
  
 
 //News
-.controller('page2Ctrl', ['$scope', '$stateParams','$timeout','$http'
+.controller('page2Ctrl', ['$scope', '$stateParams','$http',
 // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,$timeout,$http) {
-	$scope.News = [];
+function ($scope, $stateParams, $http) {
 
 
 	$scope.doRefresh = function () {
 		
-		$http.get('http://www.word.com/News.json')
+		$http.get('http://127.0.0.1:8888/News')
 			
 			.success(function (response) {
 				// body...
 				$scope.News = response.News;
-			});
+
+			})
 
 			.finally(function () {
 				//stop the ion-refresher from spinning.
@@ -71,7 +71,7 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
+		
 
 }])
    
