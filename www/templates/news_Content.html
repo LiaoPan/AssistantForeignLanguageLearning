@@ -1,13 +1,14 @@
 <ion-view title="通知详情" id="page8">
-    <ion-content padding="true" class="has-header">
-        <h1 id="news_Content-heading2" style="color:#000000;">通知标题</h1>
+    <ion-content padding="true" class="has-header" >
+        <h1 id="news_Content-heading2" style="color:#000000;">{{News.title}}</h1>
         <div id="news_Content-markdown5" style="color:#000000;">
-            <h3>副标题</h3>
+            <p>{{News.date}}</p>
         </div>
         <div class="spacer" style="width: 300px; height: 31px;"></div>
         <div id="news_Content-button-bar2" class=" button-bar "></div>
         <div id="news_Content-markdown6" style="color:#000000;">
-            <p>正文</p>
+
+            <p>{{News.content}}</p>
         </div>
     </ion-content>
 </ion-view>

@@ -72,7 +72,7 @@ angular.module('app.routes', [])
   })
 
   .state('tabsController.news_content', {
-    url: '/news_content',
+    url: '/news_content/:id',
     views: {
       'tab1': {
         templateUrl: 'templates/news_Content.html',
