@@ -4,8 +4,8 @@ var fs = require('fs');
 
 var app = express();
 
-//read json data
-console.log("read json file");
+//read json data of News
+console.log("read News json file");
 fs.readFile('News.json',function (err,data) {
 	if (err) {
 		return console.error(err);
@@ -14,6 +14,20 @@ fs.readFile('News.json',function (err,data) {
 	// console.log(data.toString());
 	News = data;
 })
+
+
+//read json data of Article.
+console.log("read Article json file");
+fs.readFile('Article.json',function (err,data) {
+	if (err) {
+		return console.error(err);
+	}
+	console.log("open file success");
+	// console.log(data.toString());
+	Article = data;
+})
+
+
 
 app.all('*',function (req,res,next) {
 	 // Website you wish to allow to connect
@@ -39,6 +53,10 @@ app.all('*',function (req,res,next) {
 app.get('/News',function (req,res) {
 	res.send(News);
 });
+
+app.get('/Article',function (req,res) {
+	res.send(Article);
+})
 
 app.listen(8888)
 

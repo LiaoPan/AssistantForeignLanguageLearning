@@ -88,7 +88,7 @@ angular.module('app.routes', [])
   })
 
   .state('tabsController.article_content', {
-    url: '/article_content',
+    url: '/article_content/:id',
     views: {
       'tab3': {
         templateUrl: 'templates/article_content.html',
