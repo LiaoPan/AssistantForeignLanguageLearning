@@ -1,19 +1,41 @@
 <ion-view title="登陆" id="page7">
     <ion-content padding="true" class="has-header">
         <form id="login-form2" class="list ">
+
             <ion-list id="login-list9">
+
                 <label class="item item-input " id="login-input4">
                     <span class="input-label">用户名</span>
-                    <input type="text" placeholder="">
+                    <input type="text" name="username" placeholder=""  ng-model="data.username">
                 </label>
+
                 <label class="item item-input " id="login-input5">
                     <span class="input-label">密码</span>
-                    <input type="password" placeholder="">
+                    <input type="password" name="password" placeholder="" ng-model="data.password">
                 </label>
+
             </ion-list>
+
             <div class="spacer" style="height: 40px;"></div>
-            <a ui-sref="tabsController.page3" id="login-button2" class=" button button-positive  button-block ">登陆</a>
+
+            <a ui-sref="tabsController.page3" id="login-button2" class=" button button-positive  button-block " type="submit" name="submit" ng-click="login()">登陆</a>
+            
             <a ui-sref="signup" id="login-button3" class=" button button-positive  button-block button-clear ">注册</a>
+
         </form>
+        <style type="text/css">
+            div {
+                  text-align: center;
+                }
+                .spinner svg {
+                  width: 19% !important;
+                  height: 85px !important;
+                }
+        </style>
+        <!--ion-spinner-->
+        <div style="text-align: center;">
+         <ion-spinner icon="ripple" class="spinner-android" ng-show='response=="ok"'></ion-spinner>
+        </div>
+
     </ion-content>
 </ion-view>

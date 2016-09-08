@@ -7400,7 +7400,8 @@ ion-slides {
     fill: #387ef5; }
   .spinner.spinner-calm {
     stroke: #11c1f3;
-    fill: #11c1f3; }
+    /*fill: #11c1f3; */
+    fill:#387ef5;  }
   .spinner.spinner-balanced {
     stroke: #33cd5f;
     fill: #33cd5f; }

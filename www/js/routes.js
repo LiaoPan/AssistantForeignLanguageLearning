@@ -55,6 +55,14 @@ angular.module('app.routes', [])
       'tab2': {
         templateUrl: 'templates/vedio_title.html',
         controller: 'vedio_titleCtrl'
+      },
+      'vedio_comments': {
+        templateUrl: 'templates/vedio_comments.html',
+        controller: 'vedio_commentCtrl'
+      },
+      'vedio_details': {
+        templateUrl :'templates/vedio_details.html',
+        controller : 'vedio_detailsCtrl'
       }
     }
   })
@@ -113,7 +121,7 @@ angular.module('app.routes', [])
     controller: 'logoCtrl'
   })
 
-$urlRouterProvider.otherwise('/page1/page_word')
+$urlRouterProvider.otherwise('/login')
 
   
 

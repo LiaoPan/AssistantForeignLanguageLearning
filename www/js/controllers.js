@@ -2,11 +2,11 @@ angular.module('app.controllers', [])
 
 
 //News
-.controller('page2Ctrl', ['$scope', '$stateParams', '$http',
+.controller('page2Ctrl', ['$scope', '$stateParams', '$http','$cordovaToast',
     // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams, $http) {
+    function($scope, $stateParams, $http,$cordovaToast) {
 
 
         $scope.doRefresh = function() {
@@ -22,6 +22,9 @@ angular.module('app.controllers', [])
             .finally(function() {
                 //stop the ion-refresher from spinning.
                 $scope.$broadcast('scroll.refreshComplete');
+                //add toast infomation.
+                $cordovaToast.showShortBottom("刷新完成");
+
             })
         }
 
@@ -80,11 +83,32 @@ angular.module('app.controllers', [])
     }
 ])
 
-.controller('loginCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams','$ionicPopup','$timeout',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams) {
+    function($scope, $stateParams,$ionicPopup,$timeout) {
+        $scope.data = {};
+        $scope.response = "no";
 
+        $scope.login = function() {
+            console.log("Login user: " + $scope.data.username + "  password: "+ $scope.data.password);
+            $scope.response = "ok";//表示验证登陆成功。
+
+            //alert对话框，登陆失败时弹出。
+            if($scope.response=="no") {
+                var alertPopup = $ionicPopup.alert({
+                    title:'密码或者用户名错误！',
+                    // template:'请重新输入用户名密码',
+                    subTitle:'请重新输入用户名密码'
+                });
+                alertPopup.then(function () {
+                    console.log("登陆失败，请重试！");
+                });
+                $timeout(function () {
+                    alertPopup.close();
+                },3000);//3秒后关闭。
+            }
+        }
 
     }
 ])
@@ -145,6 +169,24 @@ angular.module('app.controllers', [])
 ])
 
 .controller('logoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    // You can include any angular dependencies as parameters for this function
+    // TIP: Access Route Parameters for your page via $stateParams.parameterName
+    function($scope, $stateParams) {
+
+
+    }
+])
+
+.controller('vedio_commentCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    // You can include any angular dependencies as parameters for this function
+    // TIP: Access Route Parameters for your page via $stateParams.parameterName
+    function($scope, $stateParams) {
+
+
+    }
+])
+
+.controller('vedio_detailsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams) {
