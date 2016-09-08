@@ -65,11 +65,27 @@ angular.module('app.controllers', [])
     }
 ])
 
-.controller('vedio_titleCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('vedio_titleCtrl', ['$scope', '$stateParams','$ionicSlideBoxDelegate', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams) {
+    function($scope, $stateParams,$ionicSlideBoxDelegate) {
+        $scope.slideIndex = 0;
+        console.log($scope.slideIndex);
+        $scope.slideChanged = function (index) {
+            $scope.slideIndex = index;
+            console.log("slide change");
 
+            if ($scope.slideIndex == 0) {
+                console.log("slide 1");
+            }else if ($scope.slideIndex == 1) {
+                console.log("slide 2");
+            }
+        };
+
+        $scope.activeSlide = function (index) {
+            console.log("here "+index);
+            $ionicSlideBoxDelegate.slide(index);
+        };
 
     }
 ])

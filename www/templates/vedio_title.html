@@ -6,11 +6,32 @@
 
         <!-- src="https://www.youtube.com/embed/lTLTs2ZA2JQ?rel=0&amp;showinfo=0" -->
         <div id="vedio_title-button-bar3" class=" button-bar ">
-            <button id="vedio_title-button5" class=" button button-light  button-block ">评论</button>
-            <button id="vedio_title-button6" class=" button button-light  button-block ">详情</button>
+           	<ul class="slide-tab">
+
+           		<li ng-class="slideIndex == 0 ? 'current':''">
+           		 <button id="vedio_title-button5" class=" button button-light  button-block" ng-click="activeSlide(0)">评论</button>
+           	</li>
+
+            <li ng-class="slideIndex == 1 ? 'current':''">
+            	<button id="vedio_title-button6" class=" button button-light  button-block " ng-click="activeSlide(1)">详情</button>
+            </li>
+
+           	</ul>
         </div>
-		<div ui-view="vedio_comments"></div>
-		<div ui-view="vedio_details"></div>
+
+	<ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" >
+		<ion-slide>
+			同学们的评论都在这里！
+		</ion-slide>
+		
+		<ion-slide>
+			视频的详情简介都在这里！
+		</ion-slide>
+	</ion-slide-box>
+		
+
+	<!-- 	<div ui-view="vedio_comments"></div>
+		<div ui-view="vedio_details"></div> -->
 
     </ion-content>
 </ion-view>
