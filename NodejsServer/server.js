@@ -28,6 +28,18 @@ fs.readFile('Article.json',function (err,data) {
 })
 
 
+//read json data of Video
+console.log("read Video json file");
+fs.readFile('Video.json',function (err,data) {
+	if (err) {
+		return console.error(err);
+	}
+	console.log("open file success");
+	// console.log(data.toString());
+	Video = data;
+})
+
+
 
 app.all('*',function (req,res,next) {
 	 // Website you wish to allow to connect
@@ -49,6 +61,7 @@ app.all('*',function (req,res,next) {
 	
 });
 
+//route setting
 
 app.get('/News',function (req,res) {
 	res.send(News);
@@ -57,6 +70,11 @@ app.get('/News',function (req,res) {
 app.get('/Article',function (req,res) {
 	res.send(Article);
 })
+
+app.get('/Video',function (req,res) {
+	res.send(Video);
+})
+
 
 app.listen(8888)
 

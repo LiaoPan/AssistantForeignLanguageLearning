@@ -7,25 +7,20 @@
             <ion-item class="item-icon-left  " id="page11-list-item40">
                 <i class="icon ion-android-volume-up"></i>英式['word]</ion-item>
         </div>
-        <div class="list card " id="page11-card21">
-            <h4 id="page11-heading4" style="color:#000000;">中文释义</h4>
-            <div id="page11-markdown8" style="color:#000000;">
-                <p>n.中文释义……</p>
+        <ion-list>
+            <div ng-repeat="group in groups">
+
+                <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+                    <i class="icon" ng-class="isGroupShown(group) ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i> &nbsp; {{group.name}}
+                </ion-item>
+                <ion-item class="item-accordion" ng-show="isGroupShown(group)">
+                    {{group.items}}
+                </ion-item>
+
+                <div class="spacer"></div>
             </div>
-        </div>
-        <div class="list card " id="page11-card25">
-            <h4 id="page11-heading8" style="color:#000000;">英文释义</h4>
-            <div id="page11-markdown12" style="color:#000000;">
-                <p>n.English explain……</p>
-            </div>
-        </div>
-        <div class="list card " id="page11-card27">
-            <h4 id="page11-heading10" style="color:#000000;">用法例句</h4>
-            <div id="page11-markdown16" style="color:#000000;">
-                <p>Fewer and fewer people are in work.(点击显示)</p>
-            </div>
-        </div>
-        <div id="page11-button-bar5" class=" button-bar ">
+        </ion-list>
+        <div id="page11-button-bar5" class=" button-bar">
             <button id="page11-button14" class=" button button-stable  button-block icon-left ion-happy-outline ">简单</button>
             <button id="page11-button15" class=" button button-stable  button-block icon ion-social-octocat ">中等</button>
             <button id="page11-button16" class=" button button-stable  button-block icon-left ion-sad-outline ">困难</button>

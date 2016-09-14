@@ -1,28 +1,13 @@
 <ion-view title="听力视频" id="page3">
     <ion-content padding="true" class="has-header">
         <!-- refresh content animation -->
-        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()" spinner="ios-small"></ion-refresher>
 
         <ion-list id="page3-list5">
 
-            <ion-item class="item-thumbnail-left  " id="page3-list-item15" ui-sref="tabsController.vedio_title">
-                <h2>听力视频</h2>
+            <ion-item ng-repeat="v in Video" class="item-thumbnail-left  " id="page3-list-item15" ui-sref="tabsController.vedio_title({id:v.id})">
+                <h2>{{v.title}}</h2>
             </ion-item>
-            
-            <ion-item class="item-thumbnail-left  " id="page3-list-item17">
-                <h2>Item</h2>
-            </ion-item>
-            <ion-item class="item-thumbnail-left  " id="page3-list-item18">
-                <h2>Item</h2>
-            </ion-item>
-            <ion-item class="item-thumbnail-left  " id="page3-list-item19">
-                <h2>Item</h2>
-            </ion-item>
-            <ion-item class="item-thumbnail-left  " id="page3-list-item20">
-                <h2>Item</h2>
-            </ion-item>
-            <ion-item class="item-thumbnail-left  " id="page3-list-item21">
-                <h2>Item</h2>
 
             </ion-item>
         </ion-list>

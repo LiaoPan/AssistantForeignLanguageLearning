@@ -1,5 +1,5 @@
 {
-  "name": "%E5%A4%96%E8%AF%AD%E5%AD%A6%E4%B9%A0%E5%8A%A9%E6%89%8B",
+  "name": "wordnet",
   "version": "1.1.1",
   "description": "外语学习助手: An Ionic project",
   "dependencies": {

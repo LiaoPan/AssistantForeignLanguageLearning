@@ -15,6 +15,59 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+// variables
+$tab_color_c:						#2095F2 !important;
+
+
+// tab-color
+ .tabs-striped.tabs-stable .tab-item.tab-item-active, .tabs-striped.tabs-stable .tab-item.active, .tabs-striped.tabs-stable .tab-item.activated {
+
+    color: $tab_color_c;
+
+}
+
+
+//tab_css
+.slide-tab{
+    display: table;
+    overflow: hidden;
+    margin: 0;
+    width: 100%;
+    height:30px;
+    border-bottom: 2px solid #dddddd;
+
+}
+
+.slide-tab li{
+    float: left;
+
+    overflow: hidden;
+    padding: 0px;
+}
+
+
+.slide-tab a{
+    background-color: #eff0f2;
+    // border-bottom: 1px solid #E21717;
+    color: #888;
+    font-weight: 500;
+    display: block;
+    letter-spacing: 0;
+    outline: none;
+    padding: 16% 20px;
+    text-decoration: none;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.current a{
+    color: #FFFFFF;
+    background: #05D6E7;
+    // border-bottom: 1px solid #18E68B;
+}
+
+
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 

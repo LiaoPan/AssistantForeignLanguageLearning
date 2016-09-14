@@ -264,6 +264,7 @@
 @include tabs-color('tabs-color-royal', $royal);
 @include tabs-color('tabs-color-dark', $dark);
 
+
 @mixin tabs-standard-color($style, $color, $off-color:$dark) {
   &.#{$style} {
     .tab-item {

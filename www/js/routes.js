@@ -23,6 +23,7 @@ angular.module('app.routes', [])
     }
   })
 
+//视频list
   .state('tabsController.page3', {
     url: '/tab_listen',
     views: {
@@ -49,8 +50,9 @@ angular.module('app.routes', [])
     abstract:true
   })
 
+// 视频详情页面(具体视频)
   .state('tabsController.vedio_title', {
-    url: '/vedio_content',
+    url: '/vedio_content/:id',
     views: {
       'tab2': {
         templateUrl: 'templates/vedio_title.html',
@@ -67,10 +69,10 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('signup', {
-    url: '/signup',
-    templateUrl: 'templates/signup.html',
-    controller: 'signupCtrl'
+  .state('changePassword', {
+    url: '/changePassword',
+    templateUrl: 'templates/changePassword.html',
+    controller: 'changePasswordCtrl'
   })
 
   .state('login', {
@@ -105,12 +107,13 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('tabsController.page11', {
+// 单词页面
+  .state('tabsController.page_word', {
     url: '/page_word',
     views: {
       'tab5': {
         templateUrl: 'templates/page_word.html',
-        controller: 'page11Ctrl'
+        controller: 'page_wordCtrl'
       }
     }
   })
@@ -119,6 +122,12 @@ angular.module('app.routes', [])
     url: '/page_start',
     templateUrl: 'templates/logo.html',
     controller: 'logoCtrl'
+  })
+
+  .state('forgetPassword',{
+    url:'/forgetPassword',
+    templateUrl:'templates/forgetPassword.html',
+    controller:'forgetPasswordCtrl'
   })
 
 $urlRouterProvider.otherwise('/login')

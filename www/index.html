@@ -9,18 +9,19 @@
     
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
     <!-- Toast-PhoneGap-Plugin -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    
+    <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+   
 
     
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     
 
     <style type="text/css">
@@ -58,14 +59,13 @@
     
 
     <!-- Only required for Tab projects w/ pages in multiple tabs 
-    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
-    -->
+    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>  -->
 
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
   <div>
     <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
-        <ion-side-menu-content>
+        <ion-side-menu-content >
             <ion-nav-bar class="bar-dark">
                 <ion-nav-back-button></ion-nav-back-button>
                 <ion-nav-buttons side="left">
@@ -104,8 +104,8 @@
                     <ion-item class="item-icon-left  " id="side-menu21-list-item12" data-componentid="list-item12">
                         <i class="icon ion-ionic"></i>设置</ion-item>
 
-                    <ion-item class="item-icon-left  " id="side-menu21-list-item16" data-componentid="list-item16">
-                        <i class="icon ion-ionic"></i>版本信息</ion-item>
+                    <ion-item class="item-icon-left  " id="side-menu21-list-item16" data-componentid="list-item16" ui-sref='changePassword' menu-close="">
+                        <i class="icon ion-ionic"></i>修改密码</ion-item>
 
                 </ion-list>
                 <div class="spacer" data-componentid="spacer6" style="width: 0px; height: 25px;"></div>

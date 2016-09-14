@@ -1,7 +1,7 @@
 <ion-view title="通知公告" id="page2">
     <ion-content padding="true" class="has-header">
         <!-- refresh content animation -->
-        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()" spinner="ios-small"></ion-refresher>
 
         <ion-list id="page2-list7">
             <ion-item ng-repeat="new in News" class="item-avatar item-icon-right" id="page2-list-item30" ui-sref="tabsController.news_content({id:new.id})">
