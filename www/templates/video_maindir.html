@@ -1,12 +1,12 @@
-<ion-view title="听力视频" id="page3">
+<ion-view title="听力视频主目录" id="video_maindir">
     <ion-content padding="true" class="has-header">
         <!-- refresh content animation -->
         <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()" spinner="ios-small"></ion-refresher>
 
-        <ion-list id="page3-list5">
+        <ion-list id="video_maindir_list">
 
-            <ion-item ng-repeat="v in Video" class="item-thumbnail-left  item-text-wrap" id="page3-list-item15" ui-sref="tabsController.vedio_title({id:v.id})">
-                <h2>{{v.title}}</h2>
+            <ion-item ng-repeat="v in VideoType" class="item-thumbnail-left  item-text-wrap" id="video_maindir_list_item" ui-sref="tabsController.vedio_title({id:v.id})">
+                <h2>{{v}}</h2>
             </ion-item>
 
             </ion-item>

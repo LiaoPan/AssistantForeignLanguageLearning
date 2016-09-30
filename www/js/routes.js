@@ -1,10 +1,16 @@
 angular.module('app.routes', [])
 
-.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
-
+.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$httpProvider) {
+  
+  //CORS
+  $httpProvider.defaults.useXDomain = true;
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  
   //place ionic tabs at the bottom of the screen.
   $ionicConfigProvider.tabs.position('bottom');
 
+  // setup the token interceptor
+  $httpProvider.interceptors.push('TokenInterceptor');
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
@@ -23,7 +29,17 @@ angular.module('app.routes', [])
     }
   })
 
-//视频list
+// //视频主目录 list
+//   .state('tabsController.page3', {
+//     url: '/tab_listen',
+//     views: {
+//       'tab2': {
+//         templateUrl: 'templates/video_maindir.html',
+//         controller: 'VideoMainDirCtrl'
+//       }
+//     }
+//   })
+//视频 详细的list 
   .state('tabsController.page3', {
     url: '/tab_listen',
     views: {

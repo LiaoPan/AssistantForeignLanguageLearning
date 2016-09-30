@@ -1,0 +1,21 @@
+{
+	"VideoType":
+	[
+		{
+			"id":1,
+			"title":"economy and finance"
+		},
+		{
+			"id":2,
+			"title":"current events "
+		},
+		{
+			"id":3,
+			"title":"humanities and arts "
+		},
+		{
+			"id":4,
+			"title":"science popularization"
+		}
+	]
+}

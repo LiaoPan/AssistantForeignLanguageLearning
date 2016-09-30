@@ -4,7 +4,8 @@
 
 
         <div style="position:relative;overflow:hidden;padding-bottom:56.25%;height:0;" id="vedio_title-video1">
-            <iframe ng-src="{{trustSrc(Video.url)}}" frameborder="0" allowfullscreen="" width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+        <!-- {{trustSrc(Video.url)}} -->
+            <iframe ng-src="http://124.16.71.190:8080/wordnet/video/ecnomic/123.mp4" frameborder="0" allowfullscreen="" width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
         </div>
         <!-- https://www.youtube.com/embed/9RTkZaX1cH0?rel=0&amp;showinfo=0 -->
         <!-- src="https://www.youtube.com/embed/lTLTs2ZA2JQ?rel=0&amp;showinfo=0" -->
@@ -12,10 +13,10 @@
         <div id="vedio_title-button-bar3" class=" button-bar">
            	<ul class="slide-tab">
 
-           		<li ng-class="slideIndex == 0 ? 'current':''">
+           	<!-- 	<li ng-class="slideIndex == 0 ? 'current':''">
            		 <a id="vedio_title-button5"  ng-click="activeSlide(0)">评论</a>
            	</li>
-
+ -->
             <li ng-class="slideIndex == 1 ? 'current':''">
             	<a id="vedio_title-button6" ng-click="activeSlide(1)">详情</a>
             </li>
@@ -24,16 +25,14 @@
         </div>
       </div>
 	<ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" >
-		<ion-slide>
+	<!-- 	<ion-slide>
       同学们的评论都在这里！
-      <div ui-view="vedio_comments"></div>
+      <div ui-view  name="vedio_comments"></div>
 		</ion-slide>
-		
+		 -->
 		<ion-slide>
-			视频的详情简介都在这里！
-
       {{Video.intro}}
-      <div ui-view="vedio_details"></div>
+   <!--    <div ui-view name="vedio_details"></div> -->
 		</ion-slide>
 	</ion-slide-box>
 		

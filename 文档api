@@ -53,15 +53,15 @@
 访问json格式举例：
 ----------------------------------
 {
-	”vedio":
+	"Video":
 	[
 		{
 			"id":1,
 			"title":"视频名称",
 			"url":"视频路径",
-			"author":"Bob",
 			"intro":"视频简介"，
-			"srt":"字幕文件路径"
+			"srt_en":"英文字幕文件路径",
+			"srt_zh":"中文字幕文件路径"
 			"date":"2016-09-23"
 		}
 	]
@@ -81,11 +81,90 @@
 			"id":1,
 			"unit":1,
 			"word":"animate",
-			"":"英式音标"
-			"":"美式音标"
+			"phonetic_uk":"英式音标",
+			"phonetic_usa":"美式音标",
+			"paraphrase_en":"英文释义",
+			"paraphrase_zh":"中文释义",
+			"sample_sentence1":"",
+			"sample_sentence2":""
 
 		}
 	]
 }
 ----------------------------------
 
+功能六：获取视频的类别目录
+
+如经济金融/人文艺术/时事热点/学科科普
+也可以获取学科科普下的子目录：如数学/材料/生物/物理..etc.
+
+POST信息：
+在点击一级目录，进入二级目录时，我需要判断，二级目录里面是否还有
+目录分类（如数学/材料/生物/物理..etc.），
+-------------------
+{
+	title:"经济金融"       //经济金融/人文艺术/时事热点/学科科普
+	
+}
+
+服务器返回信息：
+{
+	hasdir:true or false //返回
+}
+-------------------
+
+访问url：/videotype
+访问json格式举例：
+----------------------------------
+{
+	"VideoType":
+	[
+		{
+			"id":1,
+			"title":"economy and finance"
+		},
+		{
+			"id":2,
+			"title":"current events "
+		},
+		{
+			"id":3,
+			"title":"humanities and arts "
+		},
+		{
+			"id":4,
+			"title":"science popularization"
+		}
+	]
+}
+-----------
+{
+	"VideoType":
+	[
+		{
+			"id":1,
+			"title":"biology"
+		},
+		{
+			"id":2,
+			"title":"chemisty"
+		},
+		{
+			"id":3,
+			"title":"computer"
+		},
+		{
+			"id":4,
+			"title":"material science"
+		},
+		{
+			"id":5,
+			"title":"mathematics"
+		},
+		{
+			"id":6,
+			"title":"physics"
+		}
+	]
+}
+----------------------------------

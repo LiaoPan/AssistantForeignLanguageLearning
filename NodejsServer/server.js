@@ -39,6 +39,43 @@ fs.readFile('Video.json',function (err,data) {
 	Video = data;
 })
 
+//read json data of Video Main Directory
+console.log("read Video Main Directory json file");
+fs.readFile('VideoType.json',function (err,data) {
+	if (err) {
+		return console.error(err);
+	}
+	console.log("open file success");
+	// console.log(data.toString());
+	Video = data;
+})
+
+//read json data of Video Second Directory.
+console.log("read Video Second Directory json file");
+fs.readFile('VideoTypeSec.json',function (err,data) {
+	if (err) {
+		return console.error(err);
+	}
+	console.log("open file success");
+	// console.log(data.toString());
+	Video = data;
+})
+
+
+
+
+
+//read json data of Words
+console.log("read Words json file");
+fs.readFile('Words.json',function (err,data) {
+	if (err) {
+		return console.error(err);
+	}
+	console.log("open file success");
+	// console.log(data.toString());
+	Words = data;
+})
+
 
 
 app.all('*',function (req,res,next) {
@@ -74,6 +111,27 @@ app.get('/Article',function (req,res) {
 app.get('/Video',function (req,res) {
 	res.send(Video);
 })
+
+app.get('/VideoType',function (req,res) {
+	res.send(Video);
+})
+
+app.get('/VideoTypeSec',function (req,res) {
+	res.send(Video);
+})
+
+
+app.get('/words',function (req,res) {
+	res.send(Words);
+})
+
+// login
+app.post('/login',function (req,res) {
+
+	// res.send(200);
+})
+
+
 
 
 app.listen(8888)

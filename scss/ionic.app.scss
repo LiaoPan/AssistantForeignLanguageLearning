@@ -17,7 +17,7 @@ $dark:                            #444 !default;
 
 // variables
 $tab_color_c:						#2095F2 !important;
-
+$passwordAlert:                     #E71717 !important;
 
 // tab-color
  .tabs-striped.tabs-stable .tab-item.tab-item-active, .tabs-striped.tabs-stable .tab-item.active, .tabs-striped.tabs-stable .tab-item.activated {
@@ -65,6 +65,11 @@ $tab_color_c:						#2095F2 !important;
     background: #05D6E7;
     // border-bottom: 1px solid #18E68B;
 }
+
+.ion-alert-circled {
+    color:$passwordAlert; 
+}
+
 
 
 

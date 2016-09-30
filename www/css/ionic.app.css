@@ -48,6 +48,10 @@ $dark:                            #444 !default;
   color: #FFFFFF;
   background: #05D6E7; }
 
+.ion-alert-circled {
+  color: #E71717 !important; }
+
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/

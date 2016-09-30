@@ -1,0 +1,89 @@
+{
+	"Words":
+	[
+		{
+			"id":1,
+			"unit":1,
+			"word":"animate",
+			"phonetic_uk":"['ænɪmeɪt]",
+			"phonetic_usa":"['ænɪmet]",
+			"paraphrase_en":"vt. to give life or energy to something.",
+			"paraphrase_zh":"vt. 使有生气",
+			"sample_sentence1":"Laughter animated his face for a moment.",
+			"sample_sentence2":"If live-action film is one of the most collaborative of arts, animated film is even more so."
+
+		},
+		{
+			"id":2,
+			"unit":1,
+			"word":"commit",
+			"phonetic_uk":"[kə'mɪt]",
+			"phonetic_usa":"[kə'mɪt]",
+			"paraphrase_en":"英文释义",
+			"paraphrase_zh":"中文释义",
+			"sample_sentence1":"The banks have committed themselves to boosting profits by slashing costs.",
+			"sample_sentence2":"Women commit fewer crimes than men."
+
+		},
+		{
+			"id":3,
+			"unit":1,
+			"word":"instructional",
+			"phonetic_uk":"英式音标",
+			"phonetic_usa":"美式音标",
+			"paraphrase_en":"英文释义",
+			"paraphrase_zh":"中文释义",
+			"sample_sentence1":"The university offers a free instructional video.",
+			"sample_sentence2":"Instructional programmes are essential for the project."
+
+		},
+		{
+			"id":4,
+			"unit":1,
+			"word":"revolutionize",
+			"phonetic_uk":"英式音标",
+			"phonetic_usa":"美式音标",
+			"paraphrase_en":"英文释义",
+			"paraphrase_zh":"中文释义",
+			"sample_sentence1":"New technology is going to revolutionize everything we do.",
+			"sample_sentence2":"His work revolutionized the treatment of this disease."
+
+		},
+		{
+			"id":5,
+			"unit":1,
+			"word":"release",
+			"phonetic_uk":"英式音标",
+			"phonetic_usa":"美式音标",
+			"paraphrase_en":"英文释义",
+			"paraphrase_zh":"中文释义",
+			"sample_sentence1":"Police arrested several men, who were later released.",
+			"sample_sentence2":"Physical exercise is a good way of releasing stress."
+
+		},
+		{
+			"id":6,
+			"unit":1,
+			"word":"phobia",
+			"phonetic_uk":"英式音标",
+			"phonetic_usa":"美式音标",
+			"paraphrase_en":"英文释义",
+			"paraphrase_zh":"中文释义",
+			"sample_sentence1":"Some children suffer from school phobia.",
+			"sample_sentence2":"Owen has a phobia about snakes."
+
+		},
+		{
+			"id":7,
+			"unit":1,
+			"word":"phobia",
+			"phonetic_uk":"英式音标",
+			"phonetic_usa":"美式音标",
+			"paraphrase_en":"英文释义",
+			"paraphrase_zh":"中文释义",
+			"sample_sentence1":"Some children suffer from school phobia.",
+			"sample_sentence2":"Owen has a phobia about snakes."
+
+		}
+	]
+}

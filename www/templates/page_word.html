@@ -1,11 +1,11 @@
 <ion-view title="背单词" id="page11">
     <ion-content padding="true" class="has-header">
-        <h1 id="page11-heading3" style="color:#000000;text-align:center;">word</h1>
+        <h1 id="page11-heading3" style="color:#000000;text-align:center;">{{word}}</h1>
         <div class="list card " id="page11-card22">
-            <ion-item class="item-icon-left  " id="page11-list-item37">
-                <i class="icon ion-android-volume-up"></i>美式['word]</ion-item>
-            <ion-item class="item-icon-left  " id="page11-list-item40">
-                <i class="icon ion-android-volume-up"></i>英式['word]</ion-item>
+            <ion-item class="item-icon-left  " id="page11-list-item37" ng-click="reader_US()">
+                <i class="icon ion-android-volume-up" ></i>美 {{phonetic_usa}}</ion-item>
+            <ion-item class="item-icon-left  " id="page11-list-item40" ng-click="reader_GB()">
+                <i class="icon ion-android-volume-up"></i>英 {{phonetic_uk}}</ion-item>
         </div>
         <ion-list>
             <div ng-repeat="group in groups">
@@ -13,7 +13,7 @@
                 <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
                     <i class="icon" ng-class="isGroupShown(group) ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i> &nbsp; {{group.name}}
                 </ion-item>
-                <ion-item class="item-accordion" ng-show="isGroupShown(group)">
+                <ion-item class="item-accordion item-text-wrap"" ng-show="isGroupShown(group)">
                     {{group.items}}
                 </ion-item>
 
@@ -21,9 +21,9 @@
             </div>
         </ion-list>
         <div id="page11-button-bar5" class=" button-bar">
-            <button id="page11-button14" class=" button button-stable  button-block icon-left ion-happy-outline ">简单</button>
-            <button id="page11-button15" class=" button button-stable  button-block icon ion-social-octocat ">中等</button>
-            <button id="page11-button16" class=" button button-stable  button-block icon-left ion-sad-outline ">困难</button>
+            <button id="page11-button14" class=" button button-stable  button-block icon-left ion-happy-outline " ng-click="btn_easy()">简单</button>
+            <button id="page11-button15" class=" button button-stable  button-block icon ion-social-octocat " ng-click="btn_normal()">中等</button>
+            <button id="page11-button16" class=" button button-stable  button-block icon-left ion-sad-outline " ng-click="btn_hard()">困难</button>
         </div>
     </ion-content>
 </ion-view>

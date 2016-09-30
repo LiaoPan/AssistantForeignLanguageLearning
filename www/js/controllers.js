@@ -11,7 +11,7 @@ angular.module('app.controllers', [])
 
         $scope.doRefresh = function() {
 
-            $http.get('http://127.0.0.1:8888/News')
+            $http.get('http://124.16.71.190:8080/wordnet/notation')
 
             .success(function(response) {
                 // body...
@@ -31,14 +31,39 @@ angular.module('app.controllers', [])
     }
 ])
 
-//Video List
+//Video Main List 罗列出视频主目录
+.controller('VideoMainDirCtrl', ['$scope', '$stateParams','$http','$cordovaToast','$timeout',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    // You can include any angular dependencies as parameters for this function
+    // TIP: Access Route Parameters for your page via $stateParams.parameterName
+    function($scope, $stateParams,$http,$cordovaToast,$timeout) {
+
+        $scope.doRefresh = function () {
+
+                $scope.VideoType = ["经济金融","人文艺术","时事热点","学科科普"];
+                console.log($scope.Video);
+            }
+          
+            $timeout(function () {
+                //stop the ion-refresher from spinning.
+                $scope.$broadcast('scroll.refreshComplete');
+                //add toast infomation. 必须在安卓手机上才可以显示.
+                $cordovaToast.showShortBottom("刷新完成");
+            },1000)
+           
+        
+
+    }
+])
+
+
+//Video List  罗列出视频列表
 .controller('page3Ctrl', ['$scope', '$stateParams','$http','$cordovaToast',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams,$http,$cordovaToast) {
         $scope.doRefresh = function () {
 
-            $http.get('http://127.0.0.1:8888/Video')
+            $http.get('http://124.16.71.190:8080/wordnet/video')
             .success(function (response) {
                 $scope.Video = response.Video;
                 console.log($scope.Video);
@@ -61,8 +86,9 @@ angular.module('app.controllers', [])
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams,$http,$cordovaToast) {
         $scope.doRefresh = function() {
-
-            $http.get('http://127.0.0.1:8888/Article')
+            var link = 'http://124.16.71.190:8080/wordnet/article'
+            var link1 = 'http://127.0.0.1:8888/Article';
+            $http.get(link)
 
             .success(function(response) {
                 // body...
@@ -107,7 +133,7 @@ angular.module('app.controllers', [])
         };
 
     //获取服务器视频内容
-    $http.get('http://127.0.0.1:8888/Video')
+    $http.get('http://124.16.71.190:8080/wordnet/video')
             .success(function(res) {
                 $scope.Video = res.Video[$stateParams.id - 1];
                 console.log($stateParams.id);
@@ -136,11 +162,20 @@ angular.module('app.controllers', [])
 
 
 //Login
-.controller('loginCtrl', ['$scope','$state', '$stateParams','$ionicPopup','$timeout','$ionicLoading','$ionicSideMenuDelegate',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope','$state', '$stateParams','$ionicPopup','$timeout','$ionicLoading','$ionicSideMenuDelegate','$http','md5',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope,$state, $stateParams,$ionicPopup,$timeout,$ionicLoading,$ionicSideMenuDelegate) {
+    function($scope,$state, $stateParams,$ionicPopup,$timeout,$ionicLoading,$ionicSideMenuDelegate,$http,md5) {
         
+        // access server
+
+        var link = 'http://124.16.71.190:8080/wordnet/authenticate';
+        var link1 = 'http://127.0.0.1:8888/login'
+        $scope.user = {}
+        // $scope.username = "Ucas";
+        // $scope.password = "1234566";
+       
+
         $scope.disableDragMenu = function () {
             $ionicSideMenuDelegate.canDragContent(false);
         }
@@ -158,46 +193,94 @@ angular.module('app.controllers', [])
                 showDelay:0
             });
 
-            console.log("Login user: " + $scope.data.username + "  password: "+ $scope.data.password);
-            $scope.response = "ok";//表示验证登陆成功。
+            console.log("Login user: " + $scope.username + "  password: "+ $scope.password);
+            
 
-            switch($scope.response) {
-                //login success and setup a timeout to clear loader.
-                case 'ok':$timeout(function () {
-                        $ionicLoading.hide();
-                        //等待登陆是否成功的信息.
-                    },1000);
-                $state.go('tabsController.page2');
-                break;
-                
 
-                //alert对话框，登陆失败时弹出。
-                case 'no': 
-                    $state.go('login')
+             // 需要发送的用户数据
+                 $scope.postUserData = {
+                  id:$scope.data.username,
+                  password:md5.createHash($scope.data.password || '')
+                 }
+                 console.log("用户名："+$scope.data.username);
+                 console.log("密码："+$scope.data.password);
+                 console.log(md5.createHash($scope.data.password || ''));
+                 console.log($scope.user);
+
+             $scope.req = {
+                 method:'POST',
+                 url:link,
+                 headers:{'Content-Type': 'application/json;charset=UTF-8'},
+                 params:$scope.postUserData,
+                 timeout:6000
+             }
+              
+
+                $http($scope.req).then(function (res){
+                    $scope.response = res.data.status;
+                    console.log("res status:"+res.status);
+                    console.log("Result:"+$scope.response);
+                    //表示验证登陆是否成功。
+                    console.log("response:"+$scope.response);
+
+                    switch($scope.response) {
+                        //login success and setup a timeout to clear loader.
+                        case 'true':$timeout(function () {
+                                $ionicLoading.hide();
+                                //等待登陆是否成功的信息.
+                            },1000);
+                        $state.go('tabsController.page2');
+                        break;
+                        
+
+                        //alert对话框，登陆失败时弹出。
+                        case 'false': 
+                            $state.go('login')
+                            $timeout(function () {
+                                $ionicLoading.hide();
+                                //等待登陆是否成功的信息.
+                            },1000).then(function () {
+                                alertPopup = $ionicPopup.alert({
+                                    title:'密码或者用户名错误！',
+                                    // template:'请重新输入用户名密码',
+                                    subTitle:'请重新输入用户名密码'
+                                });
+                                alertPopup.then(function () {
+                                    console.log("登陆失败，请重试！");
+                                });
+                            })
+
+                            $timeout(function () {
+                                alertPopup.close();
+                                $scope.data.password = "";
+                            },3000);//3秒后关闭。
+
+                        break;
+                        
+                    }
+                },function errorCallback(res) {
+                    console.log(res.data||'请求失败！');
+                    console.log("网络状态"+res.status);
                     $timeout(function () {
                         $ionicLoading.hide();
                         //等待登陆是否成功的信息.
-                    },1000).then(function () {
+                    },100).then(function () {
                         alertPopup = $ionicPopup.alert({
-                            title:'密码或者用户名错误！',
+                            title:'网络超时！！',
                             // template:'请重新输入用户名密码',
-                            subTitle:'请重新输入用户名密码'
+                            subTitle:'请检查网络是否正常连接'
                         });
                         alertPopup.then(function () {
                             console.log("登陆失败，请重试！");
                         });
                     })
 
-                    
-
                     $timeout(function () {
                         alertPopup.close();
-                    },3000);//3秒后关闭。
-
-                break;
-                
-            }
-            
+                        $state.go('login')
+                        $scope.data.password = "";
+                    },6000);//6秒后关闭。
+                });   
         }
 
         
@@ -214,7 +297,7 @@ angular.module('app.controllers', [])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams, $http) {
-        $http.get('http://127.0.0.1:8888/News')
+        $http.get('http://124.16.71.190:8080/wordnet/notation')
             .success(function(res) {
                 $scope.News = res.News[$stateParams.id - 1];
                 console.log($stateParams.id);
@@ -242,14 +325,16 @@ angular.module('app.controllers', [])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams, $http) {
-    	    $http.get('http://127.0.0.1:8888/Article')
+        var link1 = 'http://127.0.0.1:8888/Article';
+        var link = 'http://124.16.71.190:8080/wordnet/article'
+    	    $http.get(link)
     	        .success(function(res) {
     	            $scope.Article = res.Article[$stateParams.id - 1];
     	            console.log($stateParams.id);
     	            console.log($scope.Article);
     	        })
     	        .error(function(err) {
-    	            console.log("Could not get json information about News!");
+    	            console.log("Could not get json information about Article!");
     	        })
     	}
 
@@ -257,40 +342,109 @@ angular.module('app.controllers', [])
 ])
 
 //单词页面
-.controller('page_wordCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('page_wordCtrl', ['$scope', '$stateParams','$http','GetWords','ShowWords','WordBtn','LSFactory', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams) {
+    function($scope, $stateParams,$http,GetWords,ShowWords,WordBtn,LSFactory) {
         //从服务器获取单词/中文释义/英文释义/用法例句
-        //coding
-        var Items = [];
-        Items.push('中文释义 您好!');
-        Items.push('英文释义 Hello!');
-        Items.push('用法例句 Alide Hello!');
+       var index = 0;
+       GetWords.getWords()
 
-        var names = ['中文释义','英文释义','用法例句'];
-        $scope.groups = [];
-        for(var i = 0;i < 3;i++){
-            $scope.groups[i] = {
-                name:names[i],
-                items:Items[i],
-                show:false
-            };
-            console.log($scope.groups[i]);
+        $scope.transformWord = function (index) {
+            
+            Items = ShowWords.showWords(index)
+            console.log("ITem word::"+Items[4]);//word
+            console.log("ITem word::"+Items[5]);//英式音标
+            console.log("ITem word::"+Items[6]);//美式音标
+            $scope.word = Items[4];
+            $scope.phonetic_uk = Items[5];
+            $scope.phonetic_usa = Items[6];
+            $scope.wordid = Items[7];
+
+            console.log("Items:::"+Items);
+                var names = ['中文释义','英文释义','例句','用法例句'];
+                $scope.groups = [];
+                for(var i = 0;i < 4;i++){
+                    $scope.groups[i] = {
+                        name:names[i],
+                        items:Items[i],
+                        show:false
+                    };
+            
+                /*
+                   * if given group is the selected group, deselect it
+                   * else, select the given group
+                   */
+                  $scope.toggleGroup = function(group) {
+                    group.show = !group.show;
+                  };
+                  $scope.isGroupShown = function(group) {
+                    return group.show;
+                  };
         }
 
-        /*
-           * if given group is the selected group, deselect it
-           * else, select the given group
-           */
-          $scope.toggleGroup = function(group) {
-            group.show = !group.show;
-          };
-          $scope.isGroupShown = function(group) {
-            return group.show;
-          };
+    }
+       $scope.transformWord(0)
+       $scope.currentWord = $scope.word;
+       console.log("Curennnnt word:::"+$scope.currentWord);
+        $scope.reader_GB = function () {
+            $scope.speechText = $scope.currentWord;
+            console.log($scope.speechText);
+             
+            // iflySpeech.play($scope.speechText,'henry');
+            window.TTS.speak({
+                       text: $scope.speechText,
+                       locale: 'en-GB',
+                       rate: 1.5
+                   }, function () {
+                       // Do Something after success
+                   }, function (reason) {
+                       // Handle the error case
+                   });
+        }
+        $scope.reader_US = function () {
+            $scope.speechText = $scope.currentWord;
+            console.log($scope.speechText);
+             
+            // iflySpeech.play($scope.speechText,'aiscatherine');
+            window.TTS.speak({
+                       text: $scope.speechText,
+                       locale: 'en-US',
+                       rate: 1.5
+                   }, function () {
+                       // Do Something after success
+                   }, function (reason) {
+                       // Handle the error case
+                   });
+        }
 
 
+        //Inter
+
+
+        // button log
+        $scope.btn_easy = function () {
+            //切换为下一个单词
+            index = index+1
+            $scope.transformWord(index)
+            console.log("easy");
+           WordBtn.wordBtn("easy",$scope.wordid,"2015E800866")//para1：单词难度 para2：当前单词id para3:用户名.
+            
+        }
+
+        $scope.btn_normal = function () {
+            index = index+1
+            $scope.transformWord(index)
+            console.log("normal");
+            WordBtn.wordBtn("normal",$scope.wordid,"2015E800866")
+        }
+
+        $scope.btn_hard = function () {
+            index = index+1
+            $scope.transformWord(index)
+            console.log("difficult");
+            WordBtn.wordBtn("difficult",$scope.wordid,"2015E800866")
+        }
 
     }
 ])
