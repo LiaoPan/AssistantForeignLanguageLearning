@@ -154,7 +154,7 @@ angular.module('app.services', [])
             $http.get(link).success(function (response) {
             	response.Words;
             	console.log(response.Words);
-            	// LSFactory.delete("Words")  //有bug
+            	LSFactory.delete("Words")  //有bug
 
             	LSFactory.set("Words",response.Words)
             })
@@ -260,14 +260,51 @@ angular.module('app.services', [])
     return WordBtnAPI;
 }])
 
-//视频主目录
-.factory('VideoType',[function () {
-    
+//获取视频信息
+.factory('GetVideo',['$http',function ($http) {
+    var link = base + "video";
+    var videoinfo = [];
     var VideoTypeAPI = {
-        getVideoMainDir:function () {
-            var mainDir = ["经济金融","人文艺术","时事热点","学科科普"];
-            return mainDir;
+        getVideos: function (videotype) {
+            console.log("进入video type");
+
+            postVideoData = {
+                url: videotype
+            }
+            req = {
+                method: 'POST',
+                url: link,
+                headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+                params: postVideoData
+            }
+            
+           return  $http(req);
 
         }
+        
     }
+    return VideoTypeAPI;
 }])
+
+
+// video maindir controller 传递信息给video list controller 
+// 以此来判断读取哪一类视频信息
+.factory('VideoReq',function () {
+    var video_req = "NULL";
+
+    var VideoReqAPI = {
+        setVideoReqData: function (videoreq) {
+            console.log("Test node:"+videoreq);
+           return video_req = videoreq; 
+               
+        },
+        getVideoReqData: function () {
+            return video_req;
+        }
+    }
+
+    return VideoReqAPI;
+           
+})
+
+

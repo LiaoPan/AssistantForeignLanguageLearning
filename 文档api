@@ -95,15 +95,34 @@
 
 功能六：获取视频的类别目录
 
+一级目录：
+表名videotype
+列 id      type
+    1        economy and finance
+    2        current events 
+    3        humanities and arts    
+    4        science popularization
+
+二级目录；
+表名：science popularization
+列名  id     type
+          1      biology
+          2      chemisty
+          3      computer
+          4      material science
+          5      mathematics
+          6      physics
+
 如经济金融/人文艺术/时事热点/学科科普
 也可以获取学科科普下的子目录：如数学/材料/生物/物理..etc.
 
 POST信息：
+/directory
 在点击一级目录，进入二级目录时，我需要判断，二级目录里面是否还有
 目录分类（如数学/材料/生物/物理..etc.），
 -------------------
 {
-	title:"经济金融"       //经济金融/人文艺术/时事热点/学科科普
+	videotype:"经济金融"       //经济金融/人文艺术/时事热点/学科科普
 	
 }
 

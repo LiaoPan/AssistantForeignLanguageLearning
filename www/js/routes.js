@@ -29,19 +29,32 @@ angular.module('app.routes', [])
     }
   })
 
-// //视频主目录 list
-//   .state('tabsController.page3', {
-//     url: '/tab_listen',
-//     views: {
-//       'tab2': {
-//         templateUrl: 'templates/video_maindir.html',
-//         controller: 'VideoMainDirCtrl'
-//       }
-//     }
-//   })
+//视频主目录 list
+  .state('tabsController.videotype', {
+    url: '/tab_listen',
+    views: {
+      'tab2': {
+        templateUrl: 'templates/video_maindir.html',
+        controller: 'VideoMainDirCtrl'
+      }
+    }
+  })
+
+//视频次目录 list
+  .state('tabsController.videotypesec', {
+    url: '/tab_listensecdir',
+    views: {
+      'tab2': {
+        templateUrl: 'templates/video_secmaindir.html',
+        controller: 'VideoSecMainDirCtrl'
+      }
+    }
+  })
+
+
 //视频 详细的list 
   .state('tabsController.page3', {
-    url: '/tab_listen',
+    url: '/tab_listenlist',
     views: {
       'tab2': {
         templateUrl: 'templates/page3.html',
@@ -68,22 +81,19 @@ angular.module('app.routes', [])
 
 // 视频详情页面(具体视频)
   .state('tabsController.vedio_title', {
-    url: '/vedio_content/:id',
+    url: '/vedio_content/{id}',
     views: {
       'tab2': {
         templateUrl: 'templates/vedio_title.html',
         controller: 'vedio_titleCtrl'
-      },
-      'vedio_comments': {
-        templateUrl: 'templates/vedio_comments.html',
-        controller: 'vedio_commentCtrl'
-      },
-      'vedio_details': {
-        templateUrl :'templates/vedio_details.html',
-        controller : 'vedio_detailsCtrl'
       }
     }
   })
+
+
+
+
+
 
   .state('changePassword', {
     url: '/changePassword',

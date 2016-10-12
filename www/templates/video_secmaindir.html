@@ -1,0 +1,11 @@
+<ion-view title="学科科普" id="video_secmaindir">
+    <ion-content padding="true" class="has-header">
+
+        <ion-list id="video_secmaindir_list">
+
+            <ion-item ng-repeat="v in VideoType" class="item-thumbnail-left  item-text-wrap" id="video_secmaindir_list_item" ui-sref="tabsController.page3" ng-click="emit(v.type)">
+                <h2>{{v.content}}</h2>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

@@ -47,7 +47,7 @@ fs.readFile('VideoType.json',function (err,data) {
 	}
 	console.log("open file success");
 	// console.log(data.toString());
-	Video = data;
+	VideoType = data;
 })
 
 //read json data of Video Second Directory.
@@ -58,7 +58,7 @@ fs.readFile('VideoTypeSec.json',function (err,data) {
 	}
 	console.log("open file success");
 	// console.log(data.toString());
-	Video = data;
+	VideoTypeSec = data;
 })
 
 
@@ -113,11 +113,11 @@ app.get('/Video',function (req,res) {
 })
 
 app.get('/VideoType',function (req,res) {
-	res.send(Video);
+	res.send(VideoType);
 })
 
 app.get('/VideoTypeSec',function (req,res) {
-	res.send(Video);
+	res.send(VideoTypeSec);
 })
 
 

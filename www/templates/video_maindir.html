@@ -5,11 +5,24 @@
 
         <ion-list id="video_maindir_list">
 
-            <ion-item ng-repeat="v in VideoType" class="item-thumbnail-left  item-text-wrap" id="video_maindir_list_item" ui-sref="tabsController.vedio_title({id:v.id})">
-                <h2>{{v}}</h2>
+            <ion-item class="item-thumbnail-left  item-text-wrap" id="video_maindir_list_item" ui-sref="tabsController.page3" ng-click="emitEco()">
+                <h2>经济金融</h2>
             </ion-item>
 
+            <ion-item class="item-thumbnail-left  item-text-wrap" id="video_maindir_list_item" ui-sref="tabsController.page3" ng-click="emitEve()">
+                <h2>人文艺术</h2>
             </ion-item>
+
+            <ion-item class="item-thumbnail-left  item-text-wrap" id="video_maindir_list_item" ui-sref="tabsController.page3" ng-click="emitArt()">
+                <h2>时事热点</h2>
+            </ion-item>
+            
+            <ion-item class="item-thumbnail-left  item-text-wrap" id="video_maindir_list_item" ui-sref="tabsController.videotypesec">
+                <h2>学科科普</h2>
+            </ion-item>
+
+
+
         </ion-list>
     </ion-content>
 </ion-view>

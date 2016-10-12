@@ -1,11 +1,13 @@
-<ion-view title="视频详情" id="page5">
+<ion-view title="视频详情" id="page5" cache-view="false">  
+<!-- cache-view="false" 让视频不在后台播放 -->
     <ion-content padding="false" class="has-header">
 
 
 
         <div style="position:relative;overflow:hidden;padding-bottom:56.25%;height:0;" id="vedio_title-video1">
         <!-- {{trustSrc(Video.url)}} -->
-            <iframe ng-src="http://124.16.71.190:8080/wordnet/video/ecnomic/123.mp4" frameborder="0" allowfullscreen="" width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+        <!-- http://124.16.71.190:8080/wordnet/video/economy and finance/3 lessons on success from an Arab businesswoman（阿拉伯女性成功的 3 个案例）.mp4 -->
+            <iframe ng-src="{{trustSrc(url)}}" frameborder="0" allowfullscreen="" width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
         </div>
         <!-- https://www.youtube.com/embed/9RTkZaX1cH0?rel=0&amp;showinfo=0 -->
         <!-- src="https://www.youtube.com/embed/lTLTs2ZA2JQ?rel=0&amp;showinfo=0" -->

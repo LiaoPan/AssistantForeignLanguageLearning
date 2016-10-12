@@ -27,54 +27,118 @@ angular.module('app.controllers', [])
 
             })
         }
+        $scope.doRefresh();
 
     }
 ])
 
 //Video Main List 罗列出视频主目录
-.controller('VideoMainDirCtrl', ['$scope', '$stateParams','$http','$cordovaToast','$timeout',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('VideoMainDirCtrl', ['$scope', '$stateParams','$cordovaToast','VideoReq',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams,$http,$cordovaToast,$timeout) {
+    function($scope, $stateParams,$cordovaToast,VideoReq) {
 
         $scope.doRefresh = function () {
 
                 $scope.VideoType = ["经济金融","人文艺术","时事热点","学科科普"];
                 console.log($scope.Video);
-            }
-          
-            $timeout(function () {
                 //stop the ion-refresher from spinning.
                 $scope.$broadcast('scroll.refreshComplete');
                 //add toast infomation. 必须在安卓手机上才可以显示.
                 $cordovaToast.showShortBottom("刷新完成");
-            },1000)
-           
+            }
+
         
+        $scope.emitEco = function () {
+            console.log("金融");
+           //传递请求参数给Video List Controller.
+          var videoreq =  "economy and finance";
+          VideoReq.setVideoReqData(videoreq);
+
+        }
+        $scope.emitEve = function () {
+           console.log("时事");
+           var videoreq =  "current events";
+            VideoReq.setVideoReqData(videoreq);
+        }
+        $scope.emitArt = function () {
+           console.log("艺术");
+           var videoreq =  "humanities and arts";
+            VideoReq.setVideoReqData(videoreq);
+        }
+   
 
     }
 ])
 
+//video 学科科普次目录
+.controller('VideoSecMainDirCtrl', ['$scope', '$stateParams','VideoReq',
+
+ function($scope, $stateParams,VideoReq){
+    $scope.VideoType = [
+            {type:'mathematics',content:"数学"},
+            {type:'material science',content:"材料"},
+            {type:'biology',content:"生物"},
+            {type:'physics',content:"物理"},
+            {type:'chemisty',content:"化学"},
+            {type:'computer',content:"计算机"}
+    ]
+
+    // console.log($scope.VideoType);
+    // ["数学","材料","生物","物理","化学","计算机"];
+
+      //     1      biology
+      //     2      chemisty
+      //     3      computer
+      //     4      material science
+      //     5      mathematics
+      //     6      physics
+    $scope.emit = function (videoreq) {
+            console.log("Test emit：："+videoreq);
+           //传递请求参数给Video List Controller.
+          var videoreq =  "science popularization/"+videoreq;
+          VideoReq.setVideoReqData(videoreq);
+        }
+
+
+}])
 
 //Video List  罗列出视频列表
-.controller('page3Ctrl', ['$scope', '$stateParams','$http','$cordovaToast',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('page3Ctrl', ['$scope', '$stateParams','$http','$cordovaToast','GetVideo','VideoReq',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams,$http,$cordovaToast) {
+    function($scope, $stateParams,$http,$cordovaToast,GetVideo,VideoReq) {
+
         $scope.doRefresh = function () {
 
-            $http.get('http://124.16.71.190:8080/wordnet/video')
-            .success(function (response) {
-                $scope.Video = response.Video;
-                console.log($scope.Video);
-            })
-            .finally(function () {
-                //stop the ion-refresher from spinning.
-                    $scope.$broadcast('scroll.refreshComplete');
-                    //add toast infomation. 必须在安卓手机上才可以显示.
-                    $cordovaToast.showShortBottom("刷新完成");
-            })
+            // $http.get('http://124.16.71.190:8080/wordnet/video')
+            // .success(function (response) {
+            //     $scope.Video = response.Video;
+            //     console.log($scope.Video);
+            // })
+            // .finally(function () {
+            //     //stop the ion-refresher from spinning.
+            //         $scope.$broadcast('scroll.refreshComplete');
+            //         //add toast infomation. 必须在安卓手机上才可以显示.
+            //         // $cordovaToast.showShortBottom("刷新完成");
+            // })
+            var videoreq = VideoReq.getVideoReqData()
+            GetVideo.getVideos(videoreq).then(function (res) {
+                 console.log("获取视频信息成功！");
+                 // console.log(res.data.Video);
+                 $scope.Video = res.data.Video;
+                 console.log("videoInfolength:"+$scope.Video.length);
+                 for(var i =0 ;i<$scope.Video.length;i++){
+                        $scope.Video[i].id = i;
+                 }
+             })
+
+            $scope.$broadcast('scroll.refreshComplete');
+            //add toast infomation. 必须在安卓手机上才可以显示.
+            // $cordovaToast.showShortBottom("刷新完成");
         }
+
+        $scope.doRefresh();
 
     }
 ])
@@ -103,15 +167,15 @@ angular.module('app.controllers', [])
                 $cordovaToast.showShortBottom("刷新完成");
             })
         }
-
+        $scope.doRefresh();
     }
 ])
 
 //视频具体
-.controller('vedio_titleCtrl', ['$scope', '$stateParams','$ionicSlideBoxDelegate','$http','$sce',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('vedio_titleCtrl', ['$scope', '$stateParams','$ionicSlideBoxDelegate','$http','$sce','GetVideo','VideoReq',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams,$ionicSlideBoxDelegate,$http,$sce) {
+    function($scope, $stateParams,$ionicSlideBoxDelegate,$http,$sce,GetVideo,VideoReq) {
 
         //实现视频页面里嵌套评论和详情页面
         $scope.slideIndex = 0;
@@ -133,16 +197,30 @@ angular.module('app.controllers', [])
         };
 
     //获取服务器视频内容
-    $http.get('http://124.16.71.190:8080/wordnet/video')
-            .success(function(res) {
-                $scope.Video = res.Video[$stateParams.id - 1];
-                console.log($stateParams.id);
-                console.log($scope.Video);
-            })
-            .error(function(err) {
-                console.log("Could not get json information about Video!");
-            })
+    // $http.get('http://124.16.71.190:8080/wordnet/video')
+    //         .success(function(res) {
+    //             $scope.Video = res.Video[$stateParams.id - 1];
+    //             console.log($stateParams.id);
+    //             console.log($scope.Video);
+    //         })
+    //         .error(function(err) {
+    //             console.log("Could not get json information about Video!");
+    //         })
+    var videoreq = VideoReq.getVideoReqData()
+    console.log("Test node 3::"+videoreq);
 
+
+    GetVideo.getVideos(videoreq).then(function (res) {
+         console.log("获取视频信息成功！!!");
+         // console.log(res.data.Video);
+         console.log("Video ID:::"+$stateParams.id);
+         $scope.Video = res.data.Video[$stateParams.id];
+         console.log("Video info ::"+res.data.Video.length);
+         console.log("video content:"+$scope.Video.id);
+         console.log("Watch video is::"+$scope.Video.title);
+         $scope.url = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.title
+         
+     })
     //处理视频url的不信任源问题
     $scope.trustSrc = function (src) {
         return $sce.trustAsResourceUrl(src);
