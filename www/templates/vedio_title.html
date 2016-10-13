@@ -7,7 +7,36 @@
         <div style="position:relative;overflow:hidden;padding-bottom:56.25%;height:0;" id="vedio_title-video1">
         <!-- {{trustSrc(Video.url)}} -->
         <!-- http://124.16.71.190:8080/wordnet/video/economy and finance/3 lessons on success from an Arab businesswoman（阿拉伯女性成功的 3 个案例）.mp4 -->
-            <iframe ng-src="{{trustSrc(url)}}" frameborder="0" allowfullscreen="" width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+            <iframe ng-src="{{trustSrc(url)}}" frameborder="0" allowfullscreen="" width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;" >
+              
+              <track label="English" kind="subtitles" srclang="en" src="{{trustSrc(url_srt)}}" default>
+            </iframe>
+    
+  
+
+            <videogular vg-theme="$scope.config.theme">
+                  <vg-media vg-src="$scope.config.sources"
+                      vg-tracks="$scope.config.tracks">
+                  </vg-media>
+                
+                  <vg-controls>
+                          <vg-play-pause-button></vg-play-pause-button>
+                          <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                          <vg-scrub-bar>
+                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                          </vg-scrub-bar>
+                          <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                          <vg-volume>
+                            <vg-mute-button></vg-mute-button>
+                            <vg-volume-bar></vg-volume-bar>
+                          </vg-volume>
+                          <vg-fullscreen-button></vg-fullscreen-button>
+                        </vg-controls>
+
+                  <vg-overlay-play></vg-overlay-play>
+                    <vg-poster vg-url='$scope.config.plugins.poster'></vg-poster>
+            </videogular>
+
         </div>
         <!-- https://www.youtube.com/embed/9RTkZaX1cH0?rel=0&amp;showinfo=0 -->
         <!-- src="https://www.youtube.com/embed/lTLTs2ZA2JQ?rel=0&amp;showinfo=0" -->
@@ -26,14 +55,15 @@
            	</ul>
         </div>
       </div>
-	<ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" >
-	<!-- 	<ion-slide>
+	<ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" show-pager="false">
+		<!-- <ion-slide>
       同学们的评论都在这里！
       <div ui-view  name="vedio_comments"></div>
 		</ion-slide>
 		 -->
 		<ion-slide>
-      {{Video.intro}}
+      {{Video.title}}
+      {{$scope.config.theme}}
    <!--    <div ui-view name="vedio_details"></div> -->
 		</ion-slide>
 	</ion-slide-box>

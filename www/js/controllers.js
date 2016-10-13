@@ -196,6 +196,10 @@ angular.module('app.controllers', [])
             $ionicSlideBoxDelegate.slide(index);
         };
 
+
+    
+
+
     //获取服务器视频内容
     // $http.get('http://124.16.71.190:8080/wordnet/video')
     //         .success(function(res) {
@@ -219,8 +223,64 @@ angular.module('app.controllers', [])
          console.log("video content:"+$scope.Video.id);
          console.log("Watch video is::"+$scope.Video.title);
          $scope.url = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.title
-         
+         $scope.url_srt = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.srt_en; 
+     
+        $scope.test = {
+           t1:[{demo:"success"}]
+        }
+        $scope.test1 = "Hello"
+         // videogular
+         $scope.config = {
+                    sources: [
+                        {src: $sce.trustAsResourceUrl($scope.url), type: "video/mp4"}
+                    ],
+                    tracks: [
+                        {
+                            src: $scope.url_srt,
+                            kind: "subtitles",
+                            srclang: "en",
+                            label: "English",
+                            default: ""
+                        }
+                    ],
+                    theme: "lib/videogular-themes-default/videogular.css",
+                    plugins: {
+                        poster: "http://www.videogular.com/assets/images/videogular.png"
+                    }
+                };
+
+
+
+
      })
+
+    // videogular
+ /*   this.config = {
+                    sources: [
+                        {src: $sce.trustAsResourceUrl($scope.url), type: "video/mp4"}
+                    ],
+                    tracks: [
+                        {
+                            src: $scope.url_srt,
+                            kind: "subtitles",
+                            srclang: "en",
+                            label: "English",
+                            default: ""
+                        }
+                    ],
+                    theme: "lib/videogular-themes-default/videogular.css",
+                    plugins: {
+                        poster: "http://www.videogular.com/assets/images/videogular.png"
+                    }
+                };
+   
+*/
+
+   
+
+
+  // console.log(":::::::::Test video angular:::"+$scope.config.theme);
+
     //处理视频url的不信任源问题
     $scope.trustSrc = function (src) {
         return $sce.trustAsResourceUrl(src);
@@ -420,12 +480,12 @@ angular.module('app.controllers', [])
 ])
 
 //单词页面
-.controller('page_wordCtrl', ['$scope', '$stateParams','$http','GetWords','ShowWords','WordBtn','LSFactory', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('page_wordCtrl', ['$scope', '$stateParams','$http','GetWords','ShowWords','WordBtn','LSFactory', 'WordIndex',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams,$http,GetWords,ShowWords,WordBtn,LSFactory) {
+    function($scope, $stateParams,$http,GetWords,ShowWords,WordBtn,LSFactory,WordIndex) {
         //从服务器获取单词/中文释义/英文释义/用法例句
-       var index = 0;
+       // var index = 0;
        GetWords.getWords()
 
         $scope.transformWord = function (index) {
@@ -462,10 +522,16 @@ angular.module('app.controllers', [])
         }
 
     }
-       $scope.transformWord(0)
+       index = WordIndex.getWordIndex()
+       $scope.transformWord(index)
        $scope.currentWord = $scope.word;
-       console.log("Curennnnt word:::"+$scope.currentWord);
+       console.log("Currennt Speak word:::"+$scope.currentWord+"Index"+index);
+
         $scope.reader_GB = function () {
+
+            index = WordIndex.getWordIndex()
+            $scope.currentWord = $scope.word;
+            console.log("Currennt Speak word:::"+$scope.currentWord+"Index"+index);
             $scope.speechText = $scope.currentWord;
             console.log($scope.speechText);
              
@@ -481,6 +547,9 @@ angular.module('app.controllers', [])
                    });
         }
         $scope.reader_US = function () {
+            index = WordIndex.getWordIndex()
+            $scope.currentWord = $scope.word;
+            console.log("Currennt Speak word:::"+$scope.currentWord+"Index"+index);
             $scope.speechText = $scope.currentWord;
             console.log($scope.speechText);
              
@@ -503,23 +572,29 @@ angular.module('app.controllers', [])
         // button log
         $scope.btn_easy = function () {
             //切换为下一个单词
-            index = index+1
+            index = WordIndex.getWordIndex()
+            console.log("index btn::"+index);
             $scope.transformWord(index)
+            WordIndex.setWordIndex(index)
             console.log("easy");
            WordBtn.wordBtn("easy",$scope.wordid,"2015E800866")//para1：单词难度 para2：当前单词id para3:用户名.
             
         }
 
         $scope.btn_normal = function () {
-            index = index+1
+            index = WordIndex.getWordIndex()
+            console.log("index btn::"+index);
             $scope.transformWord(index)
+            WordIndex.setWordIndex(index)
             console.log("normal");
             WordBtn.wordBtn("normal",$scope.wordid,"2015E800866")
         }
 
         $scope.btn_hard = function () {
-            index = index+1
+            index = WordIndex.getWordIndex()
+            console.log("index btn::"+index);
             $scope.transformWord(index)
+            WordIndex.setWordIndex(index)
             console.log("difficult");
             WordBtn.wordBtn("difficult",$scope.wordid,"2015E800866")
         }

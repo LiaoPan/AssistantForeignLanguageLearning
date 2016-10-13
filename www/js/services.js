@@ -260,6 +260,23 @@ angular.module('app.services', [])
     return WordBtnAPI;
 }])
 
+// 单词index
+.factory("WordIndex",function () {
+    var index = 0;//word id
+    var WordIndexAPI = {
+        setWordIndex: function (wordindex) {
+            return index = wordindex + 1;
+        },
+        getWordIndex: function () {
+            return index;
+        }
+
+    }
+    return WordIndexAPI
+})
+
+
+
 //获取视频信息
 .factory('GetVideo',['$http',function ($http) {
     var link = base + "video";

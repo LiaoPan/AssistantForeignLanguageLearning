@@ -20,5 +20,7 @@ cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
 ```
 [参考资料](http://devdactic.com/pull-to-refresh-ionic/)
 
+##安装videogular 实现视频播放功能
+[Videogular](http://www.videogular.com/)
 
 ------------------------------------
