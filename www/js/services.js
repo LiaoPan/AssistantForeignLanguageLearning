@@ -132,8 +132,8 @@ angular.module('app.services', [])
 
             if (token && user) {
                 config.headers['X-Access-Token'] = token.token;
-                config.headers['X-Key'] = user.email;
-                config.headers['Content-Type'] = "application/json";
+                // config.headers['x-key'] = user;
+                config.headers['Content-Type'] = "application/json;charset=UTF-8";
             }
             return config || $q.when(config);
         },
@@ -149,6 +149,9 @@ angular.module('app.services', [])
 .factory('UserFactory', ['$http','AuthFactory', function($http,AuthFactory){
     var link = base +"authenticate";
     var UserAPI = {
+        login: function (user) {
+            return $http.post()
+        }
 
     }
 

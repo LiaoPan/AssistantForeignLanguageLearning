@@ -296,11 +296,11 @@ angular.module('app.controllers', [])
 ])
 
 
-//Login
-.controller('loginCtrl', ['$scope','$state', '$stateParams','$ionicPopup','$timeout','$ionicLoading','$ionicSideMenuDelegate','$http','md5',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+//Login  and Logout
+.controller('loginCtrl', ['$rootScope','$scope','$state', '$stateParams','$ionicPopup','$timeout','$ionicLoading','$ionicSideMenuDelegate','$http','md5','AuthFactory','LSFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope,$state, $stateParams,$ionicPopup,$timeout,$ionicLoading,$ionicSideMenuDelegate,$http,md5) {
+    function($rootScope,$scope,$state, $stateParams,$ionicPopup,$timeout,$ionicLoading,$ionicSideMenuDelegate,$http,md5,AuthFactory,LSFactory) {
         
         // access server
 
@@ -311,12 +311,20 @@ angular.module('app.controllers', [])
         // $scope.password = "1234566";
        
 
-        $scope.disableDragMenu = function () {
-            $ionicSideMenuDelegate.canDragContent(false);
-        }
+        // $scope.disableDragMenu = function () {
+        //     $ionicSideMenuDelegate.canDragContent(false);
+        // }
+        
 
         $scope.data = {};
         $scope.response = "no";
+
+       
+        // 设置记住密码
+        if(LSFactory.get("Remusername")){
+               $scope.data.username = LSFactory.get("Remusername")
+                $scope.data.password = LSFactory.get("Rempassword")
+            }
 
         $scope.login = function() {
              //setup the loader
@@ -328,8 +336,10 @@ angular.module('app.controllers', [])
                 showDelay:0
             });
 
-            console.log("Login user: " + $scope.username + "  password: "+ $scope.password);
             
+            // 登陆记住密码
+            LSFactory.set("Remusername",$scope.data.username);
+            LSFactory.set("Rempassword",$scope.data.password);    
 
 
              // 需要发送的用户数据
@@ -339,8 +349,7 @@ angular.module('app.controllers', [])
                  }
                  console.log("用户名："+$scope.data.username);
                  console.log("密码："+$scope.data.password);
-                 console.log(md5.createHash($scope.data.password || ''));
-                 console.log($scope.user);
+                 console.log("密码md5："+md5.createHash($scope.data.password || ''));
 
              $scope.req = {
                  method:'POST',
@@ -364,6 +373,17 @@ angular.module('app.controllers', [])
                                 $ionicLoading.hide();
                                 //等待登陆是否成功的信息.
                             },1000);
+
+                        // 授权操作 
+                        AuthFactory.setUser($scope.data.username);
+                        AuthFactory.setToken({
+                            token:res.data.token,
+                            expires:res.data.expires
+                        });
+                        $rootScope.isAuthenticated = true;
+                        $rootScope.username = $scope.data.username;
+                        console.log("isAuthenticated:"+$rootScope.isAuthenticated);
+                        console.log("User:"+AuthFactory.getUser($scope.data.username));
                         $state.go('tabsController.page2');
                         break;
                         
@@ -401,7 +421,7 @@ angular.module('app.controllers', [])
                         //等待登陆是否成功的信息.
                     },100).then(function () {
                         alertPopup = $ionicPopup.alert({
-                            title:'网络超时！！',
+                            title:'登陆失败！！',
                             // template:'请重新输入用户名密码',
                             subTitle:'请检查网络是否正常连接'
                         });
@@ -418,7 +438,13 @@ angular.module('app.controllers', [])
                 });   
         }
 
-        
+        $rootScope.logout = function () {
+            AuthFactory.deleteAuth();
+            $rootScope.isAuthenticated = false;
+        }
+
+        // disable side menu.
+        $ionicSideMenuDelegate.canDragContent(false);
            
           
     

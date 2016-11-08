@@ -94,8 +94,8 @@
                 </ion-header-bar>
                 <ion-content padding="false" class="side-menu-left has-header">
                     <ion-list id="side-menu21-list1" data-componentid="list1">
-                        <ion-item class="item-avatar  " id="side-menu21-list-item1" data-componentid="list-item1">
-                            <h2>未登录</h2>
+                        <ion-item class="item-avatar  " id="side-menu21-list-item1" data-componentid="list-item1" ng-show="isAuthenticated">
+                            <h2>{{username}}</h2>
                         </ion-item>
                       <!--   <ion-item class="item-icon-left  " id="side-menu21-list-item41" data-componentid="list-item41">
                             <i class="icon ion-ionic"></i>我的收藏</ion-item>
@@ -104,17 +104,18 @@
                         <ion-item class="item-divider " id="side-menu21-list-item-divider2" data-componentid="list-item-divider2"></ion-item>
                         <ion-item class="item-icon-left  " id="side-menu21-list-item9" data-componentid="list-item9">
                             <i class="icon ion-ionic"></i>我的离线</ion-item> -->
-                        <ion-item class="item-icon-left  " id="side-menu21-list-item10" ui-sref="page9" menu-close="" data-componentid="list-item10">
+                        <ion-item class="item-icon-left  " id="side-menu21-list-item10" ui-sref="page9" menu-close="" data-componentid="list-item10"
+                        ng-show="isAuthenticated">
                             <i class="icon ion-ionic"></i>播放历史</ion-item>
                         <ion-item class="item-divider " id="side-menu21-list-item-divider3" data-componentid="list-item-divider3"></ion-item>
                        <!--  <ion-item class="item-icon-left  " id="side-menu21-list-item12" data-componentid="list-item12">
                             <i class="icon ion-ionic"></i>设置</ion-item> -->
-                        <ion-item class="item-icon-left  " id="side-menu21-list-item16" data-componentid="list-item16" ui-sref='changePassword' menu-close="">
+                        <ion-item class="item-icon-left  " id="side-menu21-list-item16" data-componentid="list-item16" ui-sref='changePassword' menu-close="" ng-show="isAuthenticated">
                             <i class="icon ion-ionic"></i>修改密码</ion-item>
                     </ion-list>
-                    <div class="spacer" data-componentid="spacer6" style="width: 0px; height: 25px;"></div>
+                    <!-- <div class="spacer" data-componentid="spacer6" style="width: 0px; height: 25px;"></div> -->
                     <button id="side-menu21-button8" class=" button button-assertive  button-block " data-componentid="button8" ui-sref="login" ng-show="isAuthenticated" ng-click="logout()" menu-close="">退出登陆</button>
-                    <button id="side-menu21-button9" ui-sref="login" class="button button-assertive button-block" ng-hide="isAuthenticated" ng-click="loginFormMenu()" menu-close="">登陆</button>
+                    <button id="side-menu21-button9" ui-sref="login" class="button button-assertive button-block" ng-hide="isAuthenticated" menu-close="">登陆</button>
                 </ion-content>
             </ion-side-menu>
         </ion-side-menus>

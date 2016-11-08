@@ -21,16 +21,3 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     }
   });
 })
-
-.run(['$rootScope', 'AuthFactory',
-    function($rootScope, AuthFactory) {
-
-        $rootScope.isAuthenticated = AuthFactory.isLoggedIn();
-
-        // utility method to convert number to an array of elements
-        $rootScope.getNumber = function(num) {
-            return new Array(num);
-        }
-
-    }
-])

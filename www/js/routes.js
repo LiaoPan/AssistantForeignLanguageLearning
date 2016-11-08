@@ -1,11 +1,26 @@
 angular.module('app.routes', [])
 
+.run(['$rootScope', 'AuthFactory',
+    function($rootScope, AuthFactory) {
+
+        $rootScope.isAuthenticated = AuthFactory.isLoggedIn();
+
+        // utility method to convert number to an array of elements
+        // $rootScope.getNumber = function(num) {
+        //     return new Array(num);
+        // }
+
+    }
+])
+
 .config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$httpProvider) {
   
   //CORS
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
   
+  // $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
+
   //place ionic tabs at the bottom of the screen.
   $ionicConfigProvider.tabs.position('bottom');
 
