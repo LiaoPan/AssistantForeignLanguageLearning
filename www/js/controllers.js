@@ -225,10 +225,7 @@ angular.module('app.controllers', [])
          $scope.url = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.title
          $scope.url_srt = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.srt_en; 
      
-        $scope.test = {
-           t1:[{demo:"success"}]
-        }
-        $scope.test1 = "Hello"
+        console.log("字幕文件"+$sce.trustAsResourceUrl($scope.url_srt));
          // videogular
          $scope.config = {
                     sources: [
@@ -236,11 +233,11 @@ angular.module('app.controllers', [])
                     ],
                     tracks: [
                         {
-                            src: $scope.url_srt,
+                            src: $sce.trustAsResourceUrl($scope.url_srt),
                             kind: "subtitles",
                             srclang: "en",
                             label: "English",
-                            default: ""
+                            default: "default"
                         }
                     ],
                     theme: "lib/videogular-themes-default/videogular.css",

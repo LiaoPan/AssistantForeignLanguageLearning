@@ -145,6 +145,18 @@ angular.module('app.services', [])
 
 }])
 
+// 用户的基本操作[login,logout]
+.factory('UserFactory', ['$http','AuthFactory', function($http,AuthFactory){
+    var link = base +"authenticate";
+    var UserAPI = {
+
+    }
+
+    return UserAPI;
+
+}])
+
+
 // 单词页面获取单词
 .factory('GetWords', ['$http', 'LSFactory',function($http,LSFactory) {
     var link = base + "words";
