@@ -167,7 +167,7 @@ angular.module('app.services', [])
     var GetWordsAPI = {
         getWords: function() {
             $http.get(link).success(function (response) {
-            	response.Words;
+            	// response.Words;
             	console.log(response.Words);
             	LSFactory.delete("Words")  //有bug
 
@@ -275,7 +275,7 @@ angular.module('app.services', [])
     return WordBtnAPI;
 }])
 
-// 单词index
+// 单词index,实现单词可以下翻
 .factory("WordIndex",function () {
     var index = 0;//word id
     var WordIndexAPI = {
@@ -290,6 +290,28 @@ angular.module('app.services', [])
     return WordIndexAPI
 })
 
+// 获取单词发音url
+.factory('GetPronounce', ['$http', function($http){
+    var link = base + "pronounce";
+
+    var PronounceAPI = {
+        getEnPron: function (word) {
+
+            
+            var url = link+"/en/"+word+".mp3";
+               
+           return  url;
+
+        },
+        getAmPron:function (word) {
+             var url = link+"/usa/"+word+".wav";
+                
+            return  url;
+        }
+        
+    }
+    return PronounceAPI
+}])
 
 
 //获取视频信息
@@ -306,7 +328,7 @@ angular.module('app.services', [])
             req = {
                 method: 'POST',
                 url: link,
-                headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+                headers: { 'Content-Type': 'application/json;text/plain;charset=UTF-8' },
                 params: postVideoData
             }
             
@@ -340,3 +362,112 @@ angular.module('app.services', [])
 })
 
 
+// load all information of video(json data) ,then save to localstorage.
+.factory('LoadAllVideoInfo', ['GetVideo','LSFactory', function(GetVideo,LSFactory){
+        var req_e = "economy and finance";
+        var req_c = "current events";
+        var req_h = "humanities and arts";
+        var req_s = "science popularization";
+    var LoadAllVideoInfoAPI = {
+        LoadAllVideoInfo:function () {
+            GetVideo.getVideos(req_e).then(function (res) {
+                console.log("economy and finance:正在缓存信息~");
+                console.log(res.data.Video);
+                LSFactory.set(req_e,res.data.Video);
+            });
+            GetVideo.getVideos(req_c).then(function (res) {
+                console.log("current events:正在缓存信息~");
+                console.log(res.data.Video);
+                LSFactory.set(req_c,res.data.Video);
+            })
+            GetVideo.getVideos(req_h).then(function (res) {
+                console.log("humanities and arts:正在缓存信息~");
+                console.log(res.data.Video);
+                LSFactory.set(req_h,res.data.Video);
+            })
+            GetVideo.getVideos(req_s).then(function (res) {
+                console.log("science popularization:正在缓存信息~");
+                console.log(res.data.Video);
+                LSFactory.set(req_s,res.data.Video);
+            })
+            // console.log("我在勤劳的保存video信息!!!!");
+        },
+        GetVideoInfo:function (videotype) {
+                var data =  LSFactory.get(videotype);
+                return data;
+            },
+        DeleteAllVideoInfo:function () {
+            LSFactory.delete(req_e);
+            LSFactory.delete(req_c);
+            LSFactory.delete(req_h);
+            LSFactory.delete(req_s);
+        }
+            // switch(videotype){
+            //     case req_e:
+            //         return function () {
+            //             LSFactory.get(req_e);
+            //         }
+            //         break;
+            //     case req_c:
+            //         return function () {
+            //             LSFactory.get(req_c);
+            //         }
+            //         break;
+            //     case req_h:
+            //         return function () {
+            //             LSFactory.get(req_h);
+            //         }
+            //         break;
+            //     case req_s:
+            //         return function () {
+            //             LSFactory.get(req_s);
+            //         }
+            //         break;    
+            //     }
+            // }
+        }
+
+    return LoadAllVideoInfoAPI;
+}])
+
+
+// post user's video watch time to server
+.factory('LogVideoTime', ['$http','$timeout', function($http,$timeout){
+    var link = base + 'videolog';
+    var LogVideoTimeAPI = {
+        LogVideoTimeBtn:function (userid,videoid,postonce) {
+            console.log("视频id:"+videoid);
+            console.log("用户名:"+userid);
+            postData = {
+                userid:userid,
+                videoid:videoid
+            }
+
+            req = {
+                method:'POST',
+                url:link,
+                headers:{ 'Content-Type': 'application/json;charset=UTF-8' },
+                params:postData
+            }
+
+           if(!postonce){
+             $http(req).then(function (res) {
+                console.log("res status:" + res.data.status);
+                console.log("孩子啊还在发送消息::"+postonce);
+               
+            },function errorCallback(res) {
+                console.log("网络超时！！");
+                // 问题在于 传输失败了如何重传
+                $timeout(function() {
+                    $http(req).then(function(res) {
+                        
+                        console.log("res status:" + res.data.status);
+                    })
+                }, 3000)
+            })
+           }
+        }
+    }
+
+    return LogVideoTimeAPI;
+}])

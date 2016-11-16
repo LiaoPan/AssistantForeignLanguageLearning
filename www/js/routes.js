@@ -1,10 +1,12 @@
 angular.module('app.routes', [])
 
-.run(['$rootScope', 'AuthFactory',
-    function($rootScope, AuthFactory) {
+.run(['$rootScope', 'AuthFactory','$state',
+    function($rootScope, AuthFactory,$state) {
 
         $rootScope.isAuthenticated = AuthFactory.isLoggedIn();
-
+        if(!$rootScope.isAuthenticated){
+          $state.go('login');
+        }
         // utility method to convert number to an array of elements
         // $rootScope.getNumber = function(num) {
         //     return new Array(num);
@@ -106,10 +108,6 @@ angular.module('app.routes', [])
   })
 
 
-
-
-
-
   .state('changePassword', {
     url: '/changePassword',
     templateUrl: 'templates/changePassword.html',
@@ -171,7 +169,7 @@ angular.module('app.routes', [])
     controller:'forgetPasswordCtrl'
   })
 
-$urlRouterProvider.otherwise('/login')
+$urlRouterProvider.otherwise('/page1/tab_News') //default page
 
   
 

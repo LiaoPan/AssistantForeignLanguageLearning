@@ -57,7 +57,7 @@
     <script src="js/routes.js"></script>
     <script src="js/directives.js"></script>
     <script src="js/services.js"></script>
-    <script src="js/factory.js"></script>
+    <!-- <script src="js/factory.js"></script> -->
 
 
     <!-- ifly speech  html5 only-->
@@ -73,12 +73,16 @@
 <body ng-app="app" animation="slide-left-right-ios7">
     <div>
     <!-- enable-menu-with-back-views 使得child view 里也可以看见side menus -->
-        <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
-            <ion-side-menu-content>
-                <ion-nav-bar class="bar-dark">
-                    <ion-nav-back-button></ion-nav-back-button>
-                    <ion-nav-buttons side="left">
-                        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    <!-- enable-menu-with-back-views="false" -->
+        <ion-side-menus  data-componentid="side-menu21" >
+            <ion-side-menu-content >
+                <ion-nav-bar class="bar-dark" ng-show="isAuthenticated">
+                    <ion-nav-back-button ></ion-nav-back-button>
+                    <ion-nav-buttons side="left" >
+
+                        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" " ></button>
+                        <!-- 定制任务提醒小红点 -->
+                        <!-- <i class="ion-record"></i> -->
                     </ion-nav-buttons>
                 </ion-nav-bar>
 
@@ -88,14 +92,15 @@
 
 
             
-            <ion-side-menu side="left" id="side-menu21">
+            <ion-side-menu side="left" id="side-menu21" ng-controller="loginCtrl" >
                 <ion-header-bar class="bar-stable">
                     <div class="title">用户信息</div>
                 </ion-header-bar>
                 <ion-content padding="false" class="side-menu-left has-header">
                     <ion-list id="side-menu21-list1" data-componentid="list1">
                         <ion-item class="item-avatar  " id="side-menu21-list-item1" data-componentid="list-item1" ng-show="isAuthenticated">
-                            <h2>{{username}}</h2>
+                            <img src="./img/psyduck.png">
+                            <h2 ng-model="data.username">{{data.username}}</h2>
                         </ion-item>
                       <!--   <ion-item class="item-icon-left  " id="side-menu21-list-item41" data-componentid="list-item41">
                             <i class="icon ion-ionic"></i>我的收藏</ion-item>
@@ -114,10 +119,11 @@
                             <i class="icon ion-ionic"></i>修改密码</ion-item>
                     </ion-list>
                     <!-- <div class="spacer" data-componentid="spacer6" style="width: 0px; height: 25px;"></div> -->
-                    <button id="side-menu21-button8" class=" button button-assertive  button-block " data-componentid="button8" ui-sref="login" ng-show="isAuthenticated" ng-click="logout()" menu-close="">退出登陆</button>
+                    <button id="side-menu21-button8" class=" button button-assertive  button-block " data-componentid="button8"  ng-show="isAuthenticated" ng-click="logout()" menu-close="">退出登陆</button>
                     <button id="side-menu21-button9" ui-sref="login" class="button button-assertive button-block" ng-hide="isAuthenticated" menu-close="">登陆</button>
                 </ion-content>
             </ion-side-menu>
+
         </ion-side-menus>
     </div>
 </body>

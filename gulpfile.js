@@ -11,6 +11,7 @@ var paths = {
   sass: ['./scss/**/*.scss','./www/**/*.scss']
 };
 
+
 gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {
@@ -49,3 +50,5 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+gulp.task('serve:before', ['sass','watch']);

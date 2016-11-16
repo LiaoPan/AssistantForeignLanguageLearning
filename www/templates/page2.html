@@ -1,10 +1,11 @@
-<ion-view title="通知公告" id="page2">
-    <ion-content padding="true" class="has-header">
+<ion-view title="通知公告" id="page2" class="pane">
+    <ion-content padding="true" class="has-header ">
         <!-- refresh content animation -->
         <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()" spinner="ios-small"></ion-refresher>
 
         <ion-list id="page2-list7">
             <ion-item ng-repeat="new in News" class="item-avatar item-icon-right" id="page2-list-item30" ui-sref="tabsController.news_content({id:new.id})">
+            <img src="./img/paper-plane.png" alt="">
                 <h2>{{new.title}}</h2>
                 <p>{{new.content}}</p>
                 <i class="icon ion-ios-arrow-right"></i>

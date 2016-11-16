@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services','ngCordova','ngSanitize','ngMd5',"com.2fdevs.videogular","com.2fdevs.videogular.plugins.controls","com.2fdevs.videogular.plugins.overlayplay","com.2fdevs.videogular.plugins.poster"])
+angular.module('app', ['ionic', 'app.controllers', 'app.directives','app.routes', 'app.services','ngCordova','ngSanitize','ngMd5',"com.2fdevs.videogular","com.2fdevs.videogular.plugins.controls","com.2fdevs.videogular.plugins.overlayplay","com.2fdevs.videogular.plugins.poster","com.2fdevs.videogular.plugins.buffering"])
 // 'app.factory',
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

@@ -24,7 +24,7 @@ angular.module("com.2fdevs.videogular.plugins.overlayplay", [])
     .run(
         ["$templateCache", function ($templateCache) {
             $templateCache.put("vg-templates/vg-overlay-play",
-                '<div class="overlayPlayContainer" ng-click="onClickOverlayPlay()">\
+                '<div  class="overlayPlayContainer" ng-click="onClickOverlayPlay()">\
                   <div class="iconButton" ng-class="overlayPlayIcon"></div>\
                 </div>');
         }]

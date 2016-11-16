@@ -23,4 +23,23 @@ cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
 ##安装videogular 实现视频播放功能
 [Videogular](http://www.videogular.com/)
 
+
+##音频解决方案:
+[cordova-plugin-media](https://github.com/apache/cordova-plugin-media)
+[Ionic - Cordova Media](https://www.tutorialspoint.com/ionic/ionic_media.htm)
+[ionic Media](http://arielfaur.github.io/ionic-audio/)
+[tutorail](https://www.thepolyglotdeveloper.com/2014/11/playing-audio-android-ios-ionicframework-app/)
+Usage
+
+####Install dependencies:Cordova media plugin
+
+```ionic plugin add cordova-plugin-media
+or
+cordova plugin add cordova-plugin-media
+
+```
+
+####Install this module using bower
+
+```bower install ionic-audio```
 ------------------------------------

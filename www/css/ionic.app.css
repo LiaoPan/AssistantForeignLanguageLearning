@@ -49,8 +49,33 @@ $dark:                            #444 !default;
   background: #05D6E7; }
 
 .ion-alert-circled {
-  color: #E71717 !important; }
+  color: #E11111 !important; }
 
+.imgicon {
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  display: block; }
+
+.imgicon img {
+  border-radius: 25%; }
+
+.imglogin {
+  background: url(../img/artic-sky.jpg); }
+
+.pane {
+  background-color: #eee !important; }
+
+.ion-record {
+  color: #f11 !important; }
+
+videogular my-stop-button {
+  display: table-cell;
+  width: 50px;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  color: #f11 !important; }
 
 /*!
   Ionicons, v2.0.1

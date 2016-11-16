@@ -10,12 +10,20 @@
          <!--    <iframe ng-src="{{trustSrc(url)}}" frameborder="0" allowfullscreen="" width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;" ></iframe>
     
    -->
-            <videogular vg-theme="config.theme" frameborder="0" allowfullscreen="true" width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+            <videogular crossorigin="anonymous" vg-theme="config.theme.url" vg-player-ready="onPlayerReady($API)" vg-complete="onCompleteVideo()" vg-update-time="watchTime($currentTime,$duration)" frameborder="0"  width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;" >
                   <vg-media vg-src="config.sources"
-                      vg-tracks="config.tracks">
-                  </vg-media>
+                      vg-tracks="config.tracks"
+                      vg-preload="ctrl.config.preload"
+                      vg-crossorigin="'anonymous'"
+                      vg-loop='true'
+                      vg-native-controls="true"
+                      >
+                      <!-- vg-native-controls="true" -->
+                     
+                   </vg-media>
                 
-                  <vg-controls>
+                  <!-- <vg-controls>
+                          
                           <vg-play-pause-button></vg-play-pause-button>
                           <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
                           <vg-scrub-bar>
@@ -27,16 +35,27 @@
                             <vg-volume-bar></vg-volume-bar>
                           </vg-volume>
                           <vg-playback-button></vg-playback-button>
+                          <my-stop-button></my-stop-button>
+                          
                           <vg-fullscreen-button></vg-fullscreen-button>
-                        </vg-controls>
+                          
+                          
+                  </vg-controls>
+                  
+                  
+                    <vg-overlay-play>
+                  </vg-overlay-play>
+                   -->
+                  <vg-buffering></vg-buffering>
 
-                  <vg-overlay-play></vg-overlay-play>
-                    <vg-poster vg-url='config.plugins.poster'></vg-poster>
-            </videogular>
+                  <!-- <vg-poster vg-url='config.plugins.poster'></vg-poster> -->
+          </videogular>
 
         </div>
+        <!-- Here::{{config.tracks}} -->
         <!-- https://www.youtube.com/embed/9RTkZaX1cH0?rel=0&amp;showinfo=0 -->
         <!-- src="https://www.youtube.com/embed/lTLTs2ZA2JQ?rel=0&amp;showinfo=0" -->
+
         <div class="row">
         <div id="vedio_title-button-bar3" class=" button-bar">
            	<ul class="slide-tab">
@@ -60,8 +79,9 @@
 		 -->
 		<ion-slide>
       {{Video.title}}
-      {{config.tracks}}
-      {{config.sources}}
+      
+      <!-- {{config.tracks}}
+      {{config.sources}} -->
    <!--    <div ui-view name="vedio_details"></div> -->
 		</ion-slide>
 	</ion-slide-box>

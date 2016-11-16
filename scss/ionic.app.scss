@@ -18,7 +18,8 @@ $dark:                            #444 !default;
 // variables
 $tab_color_c:						#2095F2 !important;
 $passwordAlert:                     #E71717 !important;
-
+$passwordAlert1:                     #E11111 !important;
+$infor_dot_color:                    #f11 !important;
 // tab-color
  .tabs-striped.tabs-stable .tab-item.tab-item-active, .tabs-striped.tabs-stable .tab-item.active, .tabs-striped.tabs-stable .tab-item.activated {
 
@@ -67,9 +68,45 @@ $passwordAlert:                     #E71717 !important;
 }
 
 .ion-alert-circled {
-    color:$passwordAlert; 
+    color:$passwordAlert1; 
 }
 
+
+// 登陆界面的icon
+.imgicon {
+    margin:10px;
+    padding:10px;
+    text-align:center;
+    display:block;  
+}
+
+.imgicon img {
+      border-radius: 25%;
+}
+
+.imglogin {
+    background:url(../img/artic-sky.jpg)
+}
+
+// app 整体页面颜色
+.pane {
+    background-color:#eee !important;
+}
+
+// 提醒消息小图标颜色
+.ion-record {
+    color:$infor_dot_color;
+}
+
+// videogular 自定义
+videogular my-stop-button {
+    display: table-cell;
+    width: 50px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    color:$infor_dot_color;
+}
 
 
 

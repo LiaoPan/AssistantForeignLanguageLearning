@@ -2,13 +2,18 @@ angular.module('app.controllers', [])
 
 
 //News List
-.controller('page2Ctrl', ['$scope', '$stateParams', '$http','$cordovaToast',
+.controller('page2Ctrl', ['$scope', '$stateParams', '$http','$cordovaToast','AuthFactory','$state','GetWords','LoadAllVideoInfo',
     // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams, $http,$cordovaToast) {
+    function($scope, $stateParams, $http,$cordovaToast,AuthFactory,$state,GetWords,LoadAllVideoInfo) {
 
-
+        
+        if(!AuthFactory.isLoggedIn()){
+          $state.go('login');
+        }
+        GetWords.getWords() //尽早的得到单词表
+        LoadAllVideoInfo.LoadAllVideoInfo();//尽早得到video info
         $scope.doRefresh = function() {
 
             $http.get('http://124.16.71.190:8080/wordnet/notation')
@@ -33,11 +38,13 @@ angular.module('app.controllers', [])
 ])
 
 //Video Main List 罗列出视频主目录
-.controller('VideoMainDirCtrl', ['$scope', '$stateParams','$cordovaToast','VideoReq',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('VideoMainDirCtrl', ['$scope', '$stateParams','$cordovaToast','VideoReq','AuthFactory','$state','LoadAllVideoInfo',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams,$cordovaToast,VideoReq) {
-
+    function($scope, $stateParams,$cordovaToast,VideoReq,AuthFactory,$state,LoadAllVideoInfo) {
+        if(!AuthFactory.isLoggedIn()){
+          $state.go('login');
+        }
         $scope.doRefresh = function () {
 
                 $scope.VideoType = ["经济金融","人文艺术","时事热点","学科科普"];
@@ -46,11 +53,13 @@ angular.module('app.controllers', [])
                 $scope.$broadcast('scroll.refreshComplete');
                 //add toast infomation. 必须在安卓手机上才可以显示.
                 $cordovaToast.showShortBottom("刷新完成");
+                
             }
-
         
         $scope.emitEco = function () {
             console.log("金融");
+            // $scope.Video = LoadAllVideoInfo.GetVideoInfo("economy and finance");
+            // console.log("post info to subvideo list~"+$scope.videoreq);
            //传递请求参数给Video List Controller.
           var videoreq =  "economy and finance";
           VideoReq.setVideoReqData(videoreq);
@@ -66,48 +75,53 @@ angular.module('app.controllers', [])
            var videoreq =  "humanities and arts";
             VideoReq.setVideoReqData(videoreq);
         }
+        $scope.emitSci = function () {
+           console.log("学科");
+           var videoreq =  "science popularization";
+            VideoReq.setVideoReqData(videoreq);
+        }
    
 
     }
 ])
 
 //video 学科科普次目录
-.controller('VideoSecMainDirCtrl', ['$scope', '$stateParams','VideoReq',
+// .controller('VideoSecMainDirCtrl', ['$scope', '$stateParams','VideoReq',
 
- function($scope, $stateParams,VideoReq){
-    $scope.VideoType = [
-            {type:'mathematics',content:"数学"},
-            {type:'material science',content:"材料"},
-            {type:'biology',content:"生物"},
-            {type:'physics',content:"物理"},
-            {type:'chemisty',content:"化学"},
-            {type:'computer',content:"计算机"}
-    ]
+//  function($scope, $stateParams,VideoReq){
+//     $scope.VideoType = [
+//             {type:'mathematics',content:"数学"},
+//             {type:'material science',content:"材料"},
+//             {type:'biology',content:"生物"},
+//             {type:'physics',content:"物理"},
+//             {type:'chemisty',content:"化学"},
+//             {type:'computer',content:"计算机"}
+//     ]
 
-    // console.log($scope.VideoType);
-    // ["数学","材料","生物","物理","化学","计算机"];
+//     // console.log($scope.VideoType);
+//     // ["数学","材料","生物","物理","化学","计算机"];
 
-      //     1      biology
-      //     2      chemisty
-      //     3      computer
-      //     4      material science
-      //     5      mathematics
-      //     6      physics
-    $scope.emit = function (videoreq) {
-            console.log("Test emit：："+videoreq);
-           //传递请求参数给Video List Controller.
-          var videoreq =  "science popularization/"+videoreq;
-          VideoReq.setVideoReqData(videoreq);
-        }
+//       //     1      biology
+//       //     2      chemisty
+//       //     3      computer
+//       //     4      material science
+//       //     5      mathematics
+//       //     6      physics
+//     $scope.emit = function (videoreq) {
+//             console.log("Test emit：："+videoreq);
+//            //传递请求参数给Video List Controller.
+//           var videoreq =  "science popularization/"+videoreq;
+//           VideoReq.setVideoReqData(videoreq);
+//         }
 
 
-}])
+// }])
 
 //Video List  罗列出视频列表
-.controller('page3Ctrl', ['$scope', '$stateParams','$http','$cordovaToast','GetVideo','VideoReq',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('page3Ctrl', ['$scope', '$stateParams','$http','$cordovaToast','GetVideo','VideoReq','LoadAllVideoInfo',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams,$http,$cordovaToast,GetVideo,VideoReq) {
+    function($scope, $stateParams,$http,$cordovaToast,GetVideo,VideoReq,LoadAllVideoInfo) {
 
         $scope.doRefresh = function () {
 
@@ -122,16 +136,23 @@ angular.module('app.controllers', [])
             //         //add toast infomation. 必须在安卓手机上才可以显示.
             //         // $cordovaToast.showShortBottom("刷新完成");
             // })
-            var videoreq = VideoReq.getVideoReqData()
-            GetVideo.getVideos(videoreq).then(function (res) {
-                 console.log("获取视频信息成功！");
-                 // console.log(res.data.Video);
-                 $scope.Video = res.data.Video;
-                 console.log("videoInfolength:"+$scope.Video.length);
+            var videoreq = VideoReq.getVideoReqData();
+            console.log("看这里::"+videoreq);
+            $scope.Video = LoadAllVideoInfo.GetVideoInfo(videoreq);
+            console.log("videoInfolength:"+$scope.Video.length);
                  for(var i =0 ;i<$scope.Video.length;i++){
                         $scope.Video[i].id = i;
                  }
-             })
+
+            // GetVideo.getVideos(videoreq).then(function (res) {
+            //      console.log("获取视频信息成功！");
+            //      // console.log(res.data.Video);
+            //      $scope.Video = res.data.Video;
+            //      console.log("videoInfolength:"+$scope.Video.length);
+            //      for(var i =0 ;i<$scope.Video.length;i++){
+            //             $scope.Video[i].id = i;
+            //      }
+            //  })
 
             $scope.$broadcast('scroll.refreshComplete');
             //add toast infomation. 必须在安卓手机上才可以显示.
@@ -145,10 +166,15 @@ angular.module('app.controllers', [])
 
 
 //Article List
-.controller('page4Ctrl', ['$scope', '$stateParams', '$http','$cordovaToast',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('page4Ctrl', ['$scope', '$stateParams', '$http','$cordovaToast','AuthFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
-    // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams,$http,$cordovaToast) {
+    // TIP: Access Route Parameters for your page via $stateParams.parameterName     
+    function($scope, $stateParams,$http,$cordovaToast,AuthFactory) {
+
+        if(!AuthFactory.isLoggedIn()){
+              $state.go('login');
+            }
+
         $scope.doRefresh = function() {
             var link = 'http://124.16.71.190:8080/wordnet/article'
             var link1 = 'http://127.0.0.1:8888/Article';
@@ -172,10 +198,10 @@ angular.module('app.controllers', [])
 ])
 
 //视频具体
-.controller('vedio_titleCtrl', ['$scope', '$stateParams','$ionicSlideBoxDelegate','$http','$sce','GetVideo','VideoReq',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('vedio_titleCtrl', ['$scope', '$stateParams','$ionicSlideBoxDelegate','$http','$sce','GetVideo','VideoReq','LogVideoTime','AuthFactory','LoadAllVideoInfo',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams,$ionicSlideBoxDelegate,$http,$sce,GetVideo,VideoReq) {
+    function($scope, $stateParams,$ionicSlideBoxDelegate,$http,$sce,GetVideo,VideoReq,LogVideoTime,AuthFactory,LoadAllVideoInfo) {
 
         //实现视频页面里嵌套评论和详情页面
         $scope.slideIndex = 0;
@@ -210,68 +236,154 @@ angular.module('app.controllers', [])
     //         .error(function(err) {
     //             console.log("Could not get json information about Video!");
     //         })
+
+    // have the API in your controller you can add your video playlist and change between them
+    
+    
+
+    
+
     var videoreq = VideoReq.getVideoReqData()
     console.log("Test node 3::"+videoreq);
+    var res = LoadAllVideoInfo.GetVideoInfo(videoreq);
 
-
-    GetVideo.getVideos(videoreq).then(function (res) {
          console.log("获取视频信息成功！!!");
          // console.log(res.data.Video);
          console.log("Video ID:::"+$stateParams.id);
-         $scope.Video = res.data.Video[$stateParams.id];
-         console.log("Video info ::"+res.data.Video.length);
+         $scope.Video = res[$stateParams.id];
+         console.log("Video info ::"+res.length);
          console.log("video content:"+$scope.Video.id);
          console.log("Watch video is::"+$scope.Video.title);
          $scope.url = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.title
+         // $scope.url = "http://blogstatic.freemake.com/wp-content/uploads/2015/10/Jefferson-Airplane-White-Rabbit-.mp4"
          $scope.url_srt = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.srt_en; 
-     
-        console.log("字幕文件"+$sce.trustAsResourceUrl($scope.url_srt));
+        console.log("Video src::"+$scope.url);
+        console.log("字幕文件::"+$scope.url_srt);
+        // http://www.videogular.com/assets/subs/pale-blue-dot.vtt
          // videogular
          $scope.config = {
+                    autoHide: false,
+                    autoHideTime: 3000,
+                    autoPlay: false,
+                    loop: false,
+                    preload: "auto",
+                    transclude: true,
                     sources: [
                         {src: $sce.trustAsResourceUrl($scope.url), type: "video/mp4"}
                     ],
                     tracks: [
                         {
                             src: $sce.trustAsResourceUrl($scope.url_srt),
-                            kind: "subtitles",
+                            kind: "captions",
                             srclang: "en",
                             label: "English",
                             default: "default"
-                        }
-                    ],
-                    theme: "lib/videogular-themes-default/videogular.css",
-                    plugins: {
-                        poster: "http://www.videogular.com/assets/images/videogular.png"
-                    }
-                };
-
-
-
-
-     })
-
-    // videogular
- /*   this.config = {
-                    sources: [
-                        {src: $sce.trustAsResourceUrl($scope.url), type: "video/mp4"}
-                    ],
-                    tracks: [
+                        },
                         {
-                            src: $scope.url_srt,
-                            kind: "subtitles",
+                            src: '',
+                            kind: "captions",
                             srclang: "en",
                             label: "English",
                             default: ""
                         }
+
                     ],
-                    theme: "lib/videogular-themes-default/videogular.css",
+                    theme: {
+                        url:"lib/videogular-themes-default/videogular.css"
+                    },
                     plugins: {
                         poster: "http://www.videogular.com/assets/images/videogular.png"
                     }
                 };
-   
-*/
+
+    //Log video info logging.
+    $scope.API = null;
+    $scope.onPlayerReady = function ($API) {
+        $scope.$API = $API;
+        console.log("API____:"+$scope.$API.currentState);
+
+        
+    }
+    $scope.videoid = $scope.Video.id;
+    $scope.postonce = false; //只发一次log日志
+    $scope.watchTime = function ($currentTime,$duration) {
+        var currentTime = Math.round($currentTime);
+        var duration = Math.round($duration);
+        var ratio = currentTime/$duration;
+        console.log("watchTIme____"+ratio);
+
+        if(ratio>=0.8){ //定义看视频的完成度,当看完80%时,视为学习完这个视频.
+            // console.log("timeleft------"+$scope.$API.timeLeft);
+            // $scope.$API.play();
+            // var watchedMin = Math.round(currentTime/60);
+            // var watchedSec = currentTime-watchedMin;
+            // var watchedtime = watchedMin+':'+watchedSec;
+            // console.log("Watched:"+watchedtime);
+            LogVideoTime.LogVideoTimeBtn(AuthFactory.getUser(),$scope.videoid,$scope.postonce);
+            $scope.postonce = true;
+        }
+    }
+
+    // GetVideo.getVideos(videoreq).then(function (res) {
+    //      console.log("获取视频信息成功！!!");
+    //      // console.log(res.data.Video);
+    //      console.log("Video ID:::"+$stateParams.id);
+    //      $scope.Video = res.data.Video[$stateParams.id];
+    //      console.log("Video info ::"+res.data.Video.length);
+    //      console.log("video content:"+$scope.Video.id);
+    //      console.log("Watch video is::"+$scope.Video.title);
+    //      $scope.url = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.title
+    //      // $scope.url = "http://blogstatic.freemake.com/wp-content/uploads/2015/10/Jefferson-Airplane-White-Rabbit-.mp4"
+    //      $scope.url_srt = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.srt_en; 
+    //     console.log("Video src::"+$scope.url);
+    //     console.log("字幕文件::"+$scope.url_srt);
+    //     // http://www.videogular.com/assets/subs/pale-blue-dot.vtt
+    //      // videogular
+    //      $scope.config = {
+    //                 autoHide: false,
+    //                 autoHideTime: 3000,
+    //                 autoPlay: false,
+    //                 loop: false,
+    //                 preload: "auto",
+    //                 transclude: true,
+    //                 sources: [
+    //                     {src: $sce.trustAsResourceUrl($scope.url), type: "video/mp4"}
+    //                 ],
+    //                 tracks: [
+    //                     {
+    //                         src: $sce.trustAsResourceUrl($scope.url_srt),
+    //                         kind: "captions",
+    //                         srclang: "en",
+    //                         label: "English",
+    //                         default: "default"
+    //                     },
+    //                     {
+    //                         src: '',
+    //                         kind: "captions",
+    //                         srclang: "en",
+    //                         label: "English",
+    //                         default: ""
+    //                     }
+
+    //                 ],
+    //                 theme: {
+    //                     url:"lib/videogular-themes-default/videogular.css"
+    //                 },
+    //                 plugins: {
+    //                     poster: "http://www.videogular.com/assets/images/videogular.png"
+    //                 }
+    //             };
+
+        
+    //         // $scope.changeTrack = function () {
+    //         //     $scope.config.tracks[0].default = null;
+    //         //     $scope.config.tracks[1].default = "default";
+    //         // };
+          
+
+
+
+    //  })
 
    
 
@@ -297,11 +409,19 @@ angular.module('app.controllers', [])
 
 
 //Login  and Logout
-.controller('loginCtrl', ['$rootScope','$scope','$state', '$stateParams','$ionicPopup','$timeout','$ionicLoading','$ionicSideMenuDelegate','$http','md5','AuthFactory','LSFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$rootScope','$scope','$state', '$stateParams','$ionicPopup','$timeout','$ionicLoading','$ionicSideMenuDelegate','$http','md5','AuthFactory','LSFactory','$ionicHistory','$ionicPlatform','$location',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($rootScope,$scope,$state, $stateParams,$ionicPopup,$timeout,$ionicLoading,$ionicSideMenuDelegate,$http,md5,AuthFactory,LSFactory) {
-        
+    function($rootScope,$scope,$state, $stateParams,$ionicPopup,$timeout,$ionicLoading,$ionicSideMenuDelegate,$http,md5,AuthFactory,LSFactory,$ionicHistory,$ionicPlatform,$location) {
+        $ionicPlatform.registerBackButtonAction(function() {
+        if ($location.path() === "/login" || $location.path() === "login") {
+            navigator.app.exitApp();
+          }
+          else {
+            $ionicHistory.goBack();
+            //navigator.app.goBack();
+          }
+        }, 100);
         // access server
 
         var link = 'http://124.16.71.190:8080/wordnet/authenticate';
@@ -325,6 +445,17 @@ angular.module('app.controllers', [])
                $scope.data.username = LSFactory.get("Remusername")
                 $scope.data.password = LSFactory.get("Rempassword")
             }
+
+        //当用户删除用户名,及时删除记住的密码
+        $scope.$watch('data.username',function () {
+            console.log("changed:"+$scope.data.username);
+            if(LSFactory.get("Remusername")==$scope.data.username){
+                console.log("Debug here");
+                $scope.data.password = LSFactory.get("Rempassword")
+            }else{
+                $scope.data.password = "";
+            }
+        })
 
         $scope.login = function() {
              //setup the loader
@@ -441,11 +572,13 @@ angular.module('app.controllers', [])
         $rootScope.logout = function () {
             AuthFactory.deleteAuth();
             $rootScope.isAuthenticated = false;
+            console.log("log out~~ ");
+            $state.go('login');
         }
 
         // disable side menu.
         $ionicSideMenuDelegate.canDragContent(false);
-           
+    
           
     
         
@@ -458,6 +591,9 @@ angular.module('app.controllers', [])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams, $http) {
+
+        
+
         $http.get('http://124.16.71.190:8080/wordnet/notation')
             .success(function(res) {
                 $scope.News = res.News[$stateParams.id - 1];
@@ -503,14 +639,16 @@ angular.module('app.controllers', [])
 ])
 
 //单词页面
-.controller('page_wordCtrl', ['$scope', '$stateParams','$http','GetWords','ShowWords','WordBtn','LSFactory', 'WordIndex',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('page_wordCtrl', ['$scope', '$stateParams','$http','GetWords','ShowWords','WordBtn','LSFactory', 'WordIndex','GetPronounce','AuthFactory','$cordovaMedia','$ionicPlatform',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams,$http,GetWords,ShowWords,WordBtn,LSFactory,WordIndex) {
+    function($scope, $stateParams,$http,GetWords,ShowWords,WordBtn,LSFactory,WordIndex,GetPronounce,AuthFactory,$cordovaMedia,$ionicPlatform) {
         //从服务器获取单词/中文释义/英文释义/用法例句
        // var index = 0;
-       GetWords.getWords()
-
+       // GetWords.getWords()
+       if(!AuthFactory.isLoggedIn()){
+          $state.go('login');
+        }
         $scope.transformWord = function (index) {
             
             Items = ShowWords.showWords(index)
@@ -548,7 +686,7 @@ angular.module('app.controllers', [])
        index = WordIndex.getWordIndex()
        $scope.transformWord(index)
        $scope.currentWord = $scope.word;
-       console.log("Currennt Speak word:::"+$scope.currentWord+"Index"+index);
+       console.log("Currennt Speak word:::"+$scope.currentWord+"__Index:"+index);
 
         $scope.reader_GB = function () {
 
@@ -557,17 +695,27 @@ angular.module('app.controllers', [])
             console.log("Currennt Speak word:::"+$scope.currentWord+"Index"+index);
             $scope.speechText = $scope.currentWord;
             console.log($scope.speechText);
+            var wordurl = GetPronounce.getEnPron($scope.speechText);
+
+                $ionicPlatform.ready(function () {
+                    media = $cordovaMedia.newMedia(wordurl);
+                    media.play();
+                    // $scope.speechText = ''
+                    });
              
-            // iflySpeech.play($scope.speechText,'henry');
-            window.TTS.speak({
-                       text: $scope.speechText,
-                       locale: 'en-GB',
-                       rate: 1.5
-                   }, function () {
-                       // Do Something after success
-                   }, function (reason) {
-                       // Handle the error case
-                   });
+            //     window.TTS.speak({
+            //     text: $scope.speechText,
+            //     locale: 'en-GB',
+            //     rate: 1.5
+            // }, function () {
+            //     // Do Something after success
+            // }, function (reason) {
+            //     // Handle the error case
+            // });
+                
+                
+            
+           
         }
         $scope.reader_US = function () {
             index = WordIndex.getWordIndex()
@@ -575,17 +723,25 @@ angular.module('app.controllers', [])
             console.log("Currennt Speak word:::"+$scope.currentWord+"Index"+index);
             $scope.speechText = $scope.currentWord;
             console.log($scope.speechText);
-             
-            // iflySpeech.play($scope.speechText,'aiscatherine');
-            window.TTS.speak({
-                       text: $scope.speechText,
-                       locale: 'en-US',
-                       rate: 1.5
-                   }, function () {
-                       // Do Something after success
-                   }, function (reason) {
-                       // Handle the error case
-                   });
+            var wordurl = GetPronounce.getAmPron($scope.speechText);
+            $ionicPlatform.ready(function () {
+                media = $cordovaMedia.newMedia(wordurl);
+                media.play(); 
+                // $scope.speechText = ''
+                    });
+
+          
+            // window.TTS.speak({
+            //            text: $scope.speechText,
+            //            locale: 'en-US',
+            //            rate: 1.5
+            //        }, function () {
+            //            // Do Something after success
+            //        }, function (reason) {
+            //            // Handle the error case
+            //        });
+
+
         }
 
 
@@ -600,7 +756,7 @@ angular.module('app.controllers', [])
             $scope.transformWord(index)
             WordIndex.setWordIndex(index)
             console.log("easy");
-           WordBtn.wordBtn("easy",$scope.wordid,"2015E800866")//para1：单词难度 para2：当前单词id para3:用户名.
+           WordBtn.wordBtn("easy",$scope.wordid,AuthFactory.getUser())//para1：单词难度 para2：当前单词id para3:用户名.
             
         }
 
@@ -610,7 +766,7 @@ angular.module('app.controllers', [])
             $scope.transformWord(index)
             WordIndex.setWordIndex(index)
             console.log("normal");
-            WordBtn.wordBtn("normal",$scope.wordid,"2015E800866")
+            WordBtn.wordBtn("normal",$scope.wordid,AuthFactory.getUser())
         }
 
         $scope.btn_hard = function () {
@@ -619,7 +775,7 @@ angular.module('app.controllers', [])
             $scope.transformWord(index)
             WordIndex.setWordIndex(index)
             console.log("difficult");
-            WordBtn.wordBtn("difficult",$scope.wordid,"2015E800866")
+            WordBtn.wordBtn("difficult",$scope.wordid,AuthFactory.getUser())
         }
 
     }

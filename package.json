@@ -1,7 +1,7 @@
 {
   "name": "wordnet",
   "version": "1.1.1",
-  "description": "外语学习助手: An Ionic project",
+  "description": "E-Box: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",
