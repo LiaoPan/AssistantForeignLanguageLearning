@@ -14,9 +14,10 @@ angular.module('app.controllers', [])
         }
         GetWords.getWords() //尽早的得到单词表
         LoadAllVideoInfo.LoadAllVideoInfo();//尽早得到video info
+        $scope.data.username = AuthFactory.getUser();
         $scope.doRefresh = function() {
 
-            $http.get('http://124.16.71.190:8080/wordnet/notation')
+            $http.get('http://124.16.71.5:1234/wordnet/notation')
 
             .success(function(response) {
                 // body...
@@ -125,7 +126,7 @@ angular.module('app.controllers', [])
 
         $scope.doRefresh = function () {
 
-            // $http.get('http://124.16.71.190:8080/wordnet/video')
+            // $http.get('http://124.16.71.5:1234/wordnet/video')
             // .success(function (response) {
             //     $scope.Video = response.Video;
             //     console.log($scope.Video);
@@ -176,7 +177,7 @@ angular.module('app.controllers', [])
             }
 
         $scope.doRefresh = function() {
-            var link = 'http://124.16.71.190:8080/wordnet/article'
+            var link = 'http://124.16.71.5:1234/wordnet/article'
             var link1 = 'http://127.0.0.1:8888/Article';
             $http.get(link)
 
@@ -227,7 +228,7 @@ angular.module('app.controllers', [])
 
 
     //获取服务器视频内容
-    // $http.get('http://124.16.71.190:8080/wordnet/video')
+    // $http.get('http://124.16.71.5:1234/wordnet/video')
     //         .success(function(res) {
     //             $scope.Video = res.Video[$stateParams.id - 1];
     //             console.log($stateParams.id);
@@ -254,9 +255,9 @@ angular.module('app.controllers', [])
          console.log("Video info ::"+res.length);
          console.log("video content:"+$scope.Video.id);
          console.log("Watch video is::"+$scope.Video.title);
-         $scope.url = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.title
+         $scope.url = "http://124.16.71.5:1234/wordnet/video/"+videoreq+"/"+$scope.Video.title
          // $scope.url = "http://blogstatic.freemake.com/wp-content/uploads/2015/10/Jefferson-Airplane-White-Rabbit-.mp4"
-         $scope.url_srt = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.srt_en; 
+         $scope.url_srt = "http://124.16.71.5:1234/wordnet/video/"+videoreq+"/"+$scope.Video.srt_en; 
         console.log("Video src::"+$scope.url);
         console.log("字幕文件::"+$scope.url_srt);
         // http://www.videogular.com/assets/subs/pale-blue-dot.vtt
@@ -332,9 +333,9 @@ angular.module('app.controllers', [])
     //      console.log("Video info ::"+res.data.Video.length);
     //      console.log("video content:"+$scope.Video.id);
     //      console.log("Watch video is::"+$scope.Video.title);
-    //      $scope.url = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.title
+    //      $scope.url = "http://124.16.71.5:1234/wordnet/video/"+videoreq+"/"+$scope.Video.title
     //      // $scope.url = "http://blogstatic.freemake.com/wp-content/uploads/2015/10/Jefferson-Airplane-White-Rabbit-.mp4"
-    //      $scope.url_srt = "http://124.16.71.190:8080/wordnet/video/"+videoreq+"/"+$scope.Video.srt_en; 
+    //      $scope.url_srt = "http://124.16.71.5:1234/wordnet/video/"+videoreq+"/"+$scope.Video.srt_en; 
     //     console.log("Video src::"+$scope.url);
     //     console.log("字幕文件::"+$scope.url_srt);
     //     // http://www.videogular.com/assets/subs/pale-blue-dot.vtt
@@ -424,7 +425,7 @@ angular.module('app.controllers', [])
         }, 100);
         // access server
 
-        var link = 'http://124.16.71.190:8080/wordnet/authenticate';
+        var link = 'http://124.16.71.5:1234/wordnet/authenticate';
         var link1 = 'http://127.0.0.1:8888/login'
         $scope.user = {}
         // $scope.username = "Ucas";
@@ -594,7 +595,7 @@ angular.module('app.controllers', [])
 
         
 
-        $http.get('http://124.16.71.190:8080/wordnet/notation')
+        $http.get('http://124.16.71.5:1234/wordnet/notation')
             .success(function(res) {
                 $scope.News = res.News[$stateParams.id - 1];
                 console.log($stateParams.id);
@@ -623,7 +624,7 @@ angular.module('app.controllers', [])
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams, $http) {
         var link1 = 'http://127.0.0.1:8888/Article';
-        var link = 'http://124.16.71.190:8080/wordnet/article'
+        var link = 'http://124.16.71.5:1234/wordnet/article'
     	    $http.get(link)
     	        .success(function(res) {
     	            $scope.Article = res.Article[$stateParams.id - 1];

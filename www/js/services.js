@@ -1,5 +1,6 @@
 var base1 = 'http://127.0.0.1:8888/'
-var base = 'http://124.16.71.190:8080/wordnet/'
+// var base = 'http://124.16.71.190:8080/wordnet/'
+var base = 'http://124.16.71.5:1234/wordnet/'
 angular.module('app.services', [])
 
 .factory('BlankFactory', [function() {
@@ -470,4 +471,10 @@ angular.module('app.services', [])
     }
 
     return LogVideoTimeAPI;
+}])
+
+
+.factory('TaskAlert', ['', function(){
+    
+    return TaskAlertAPI;
 }])
