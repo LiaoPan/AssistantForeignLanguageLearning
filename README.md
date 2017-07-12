@@ -43,3 +43,9 @@ cordova plugin add cordova-plugin-media
 
 ```bower install ionic-audio```
 ------------------------------------
+
+
+### 运行方式：
+```
+$ ionic serve
+```

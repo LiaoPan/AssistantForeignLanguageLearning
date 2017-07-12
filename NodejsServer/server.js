@@ -62,6 +62,16 @@ fs.readFile('VideoTypeSec.json',function (err,data) {
 })
 
 
+//read json data of Login
+console.log("read Login json file");
+fs.readFile('Login.json',function (err,data) {
+	if (err) {
+		return console.error(err);
+	}
+	console.log("open file success");
+	// console.log(data.toString());
+	Login = data;
+})
 
 
 
@@ -128,7 +138,7 @@ app.get('/words',function (req,res) {
 // login
 app.post('/login',function (req,res) {
 
-	// res.send(200);
+	res.send('true');
 })
 
 
