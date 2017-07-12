@@ -14,7 +14,6 @@ angular.module('app.controllers', [])
         }
         GetWords.getWords() //尽早的得到单词表
         LoadAllVideoInfo.LoadAllVideoInfo();//尽早得到video info
-        $scope.data.username = AuthFactory.getUser();
         $scope.doRefresh = function() {
 
             $http.get('http://124.16.71.5:1234/wordnet/notation')
