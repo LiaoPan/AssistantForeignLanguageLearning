@@ -9,7 +9,7 @@
 [mock](http://mockjs.com/)
 
 -----------------------------------------------
-##安装$cordovaToast,实现Toast功能
+## 安装$cordovaToast,实现Toast功能
 [Toast-PhoneGap-Plugin](http://ngcordova.com/docs/plugins/toast/)
 
 [github](https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin#2-screenshots)
