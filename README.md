@@ -1,4 +1,5 @@
 # 外语学习助手开发
+![view](./view.gif)
 
 ## denpency：
 1.ionic
