@@ -50,3 +50,6 @@ cordova plugin add cordova-plugin-media
 ```
 $ ionic serve
 ```
+
+备注：
+上传代码需要对应的后台(使用java框架spring搭建)才能运行，如果使用NodejsServer(express搭建)模拟后台，需要更改控制器controller.js对应相关代码才能运行。
